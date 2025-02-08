@@ -6,10 +6,11 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
   { label: "HOME", href: "#" },
-  { label: "WHO WE ARE", href: "#" },
-  { label: "VISION & MISSION", href: "#" },
+  { label: "ABOUT US", href: "#" },
   { label: "SERVICES", href: "#" },
+  { label: "PRODUCTS", href: "#" },
   { label: "OUR CLIENTS", href: "#" },
+  { label: "TESTIMONIALS", href: "#" },
   { label: "TERMS & CONDITION", href: "#" },
 ];
 
@@ -33,15 +34,15 @@ export function Navbar() {
   return (
     <nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-colors duration-300",
-        isScrolled ? "bg-black/80 backdrop-blur-sm" : "bg-transparent"
+        "sticky top-0 left-0 right-0 z-50  transition-colors duration-300  shadow-sm bg-white",
+        // isScrolled ? "fixed " : "relative"
       )}
     >
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between lg:h-20">
           {/* Logo can be added here */}
           <div>
-            <img src="/VPRO_LOGO.jpeg" alt="logo small" className="w-[80px]" />
+            <img src="/VPRO_LOGO.png" alt="logo small" className="w-[80px]" />
           </div>
 
           <div className="flex-1" />
@@ -52,14 +53,14 @@ export function Navbar() {
               <a
                 key={item.label}
                 href={item.href}
-                className="text-sm font-medium text-white transition-colors hover:text-white/80"
+                className="text-sm font-medium  transition-colors hover:text-black"
               >
                 {item.label}
               </a>
             ))}
             <a
               href="#contact"
-              className="inline-flex items-center rounded-full bg-purple-600 px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700"
+              className="inline-flex items-center rounded-full text-white bg-green-600 px-6 py-2 text-sm font-medium  transition-colors hover:bg-green-700"
             >
               LETS CONNECT
               <ArrowRight className="ml-2 h-4 w-4" />
@@ -69,7 +70,7 @@ export function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-white/10 focus:outline-none lg:hidden"
+            className="inline-flex items-center justify-center rounded-md p-2  hover:bg-white/10 focus:outline-none lg:hidden"
           >
             {isMobileMenuOpen ? (
               <X className="h-6 w-6" />
@@ -87,14 +88,14 @@ export function Navbar() {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-white/10"
+                  className="block rounded-md px-3 py-2 text-base font-medium  hover:bg-white/10"
                 >
                   {item.label}
                 </a>
               ))}
               <a
                 href="#contact"
-                className="inline-flex items-center rounded-full bg-purple-600 px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700"
+                className="inline-flex items-center rounded-full bg-purple-600 px-6 py-2 text-sm font-medium  transition-colors hover:bg-purple-700"
               >
                 LETS CONNECT
                 <ArrowRight className="ml-2 h-4 w-4" />
