@@ -1,30 +1,38 @@
-"use client";
+"use client"
 
-const Hero = () => {
+
+import Carousel, {
+  Slider,
+  SliderContainer,
+  SliderDotButton,
+} from '@/components/core/carousel';
+function index() {
+  const OPTIONS = { loop: true };
   return (
-    <div className="w-full h-screen ">
-      <section className="relative h-full flex flex-col items-center justify-center text-center">
-        <div
-          className="absolute top-0 left-0 w-full h-full overflow-hidden"
-          style={{
-            backgroundImage: "url('/background.avif')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        ></div>
-        <div className="flex flex-col items-center justify-center text-center z-10 text-white bg-black/50 h-full w-full">
-          <div className="container">
-            <h1 className="font-light text-8xl leading-tight">
-              VPRO Tech Solutions
-            </h1>
-            <h3 className="font-light text-[23px] leading-none">
-              where excellence in contracting meets innovative solutions.
-            </h3>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-};
+    <>
+      <>
+        <Carousel options={OPTIONS} isAutoPlay={true} className="w-[95%] rounded-xl  mx-auto pt-5">
+          <SliderContainer className="gap-2">
+            <Slider className="w-full">
+              <div className="rounded-xl h-[80vh] w-full" style={{ background: 'url("/shipping.jpg")', backgroundSize: 'cover' }} ></div>
+            </Slider>
+            <Slider className="w-full">
+              <div className="rounded-xl h-[80vh] w-full" style={{ background: 'url("/banner2.jpg")', backgroundSize: 'cover' }} ></div>
+            </Slider>
+            <Slider className="w-full">
+              <div className="rounded-xl h-[80vh] w-full" style={{ background: 'url("/bed.jpg")', backgroundSize: 'cover' }} ></div>
 
-export default Hero;
+            </Slider>
+            <Slider className="w-full">
+              <div className="rounded-xl h-[80vh] w-full" style={{ background: 'url("/banner2.jpg")', backgroundSize: 'cover' }} ></div>
+            </Slider>
+          </SliderContainer>
+          <div className="flex justify-center py-4">
+            <SliderDotButton />
+          </div>
+        </Carousel>
+      </>
+    </>
+  );
+}
+export default index;
