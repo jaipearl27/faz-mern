@@ -20,3 +20,7 @@ body {
   backdrop-filter: blur(3.5px);
   -webkit-backdrop-filter: blur(3.5px);
 }
+
+html {
+  scroll-behavior: smooth;
+}

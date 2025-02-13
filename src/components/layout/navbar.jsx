@@ -3,15 +3,22 @@
 import * as React from "react";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const navItems = [
-  { label: "HOME", href: "#" },
-  { label: "ABOUT US", href: "#" },
-  { label: "SERVICES", href: "#" },
-  { label: "PRODUCTS", href: "#" },
-  { label: "OUR CLIENTS", href: "#" },
-  { label: "TESTIMONIALS", href: "#" },
-  { label: "TERMS & CONDITION", href: "#" },
+  { label: "HOME", href: "/" },
+  { label: "ABOUT US", href: "about" },
+  { label: "SERVICES", href: "services" },
+  { label: "PRODUCTS", href: "products" },
+  { label: "OUR CLIENTS", href: "clients" },
+  { label: "TESTIMONIALS", href: "testimonials" },
+  {
+    label: "COMPANY", dropdown: [
+      { label: "TERMS & CONDITION", href: "terms-and-condition" },
+      { label: "PRIVACY POLICY", href: "privacy-policy" },
+      { label: "REFUND POLICY", href: "refund-policy" },
+    ]
+  },
 ];
 
 export function Navbar() {
@@ -50,14 +57,49 @@ export function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex lg:items-center lg:space-x-8">
             {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="text-sm font-medium  transition-colors hover:text-black"
-              >
-                {item.label}
-              </a>
+              item?.dropdown ? (
+                item.dropdown.map((subItem) => (
+                  <Link
+                    key={subItem.label} // Ensure unique key
+                    href={subItem?.href}
+                    className="text-sm font-medium transition-colors hover:text-black"
+                    onClick={(e) => {
+                      if (subItem.id) {
+                        e.preventDefault(); // Prevent default navigation
+                        console.log(subItem.href);
+                        const target = document.getElementById(subItem.id);
+                        console.log(target);
+                        if (target) {
+                          target.scrollIntoView({ behavior: "smooth" });
+                        }
+                      }
+                    }}
+                  >
+                    {subItem.label}
+                  </Link>
+                ))
+              ) : (
+                <Link
+                  key={item.label} // Ensure unique key
+                  href={item?.href}
+                  className="text-sm font-medium transition-colors hover:text-black"
+                  onClick={(e) => {
+                    if (item.id) {
+                      e.preventDefault(); // Prevent default navigation
+                      console.log(item.href);
+                      const target = document.getElementById(item.id);
+                      console.log(target);
+                      if (target) {
+                        target.scrollIntoView({ behavior: "smooth" });
+                      }
+                    }
+                  }}
+                >
+                  {item.label}
+                </Link>
+              )
             ))}
+
             <a
               href="#contact"
               className="inline-flex items-center rounded-full text-white bg-green-600 px-6 py-2 text-sm font-medium  transition-colors hover:bg-green-700"

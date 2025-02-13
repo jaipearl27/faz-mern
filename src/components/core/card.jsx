@@ -6,11 +6,11 @@
 //     onClick?: () => void
 // }
 
-export default function HouseCard({ title, imageUrl, onClick }) {
+export default function Card({ title, imageUrl, onClick }) {
     return (
         <div
             onClick={onClick}
-            className="group relative w-full max-w-2xl overflow-hidden rounded-3xl bg-white cursor-pointer"
+            className="group relative w-full max-w-4xl overflow-hidden rounded-3xl bg-white cursor-pointer"
         >
             <div className="aspect-[16/10] w-full">
                 <img
@@ -20,7 +20,7 @@ export default function HouseCard({ title, imageUrl, onClick }) {
                 />
             </div>
 
-            <div className="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm">
+            <div className="absolute bottom-3 left-0 right-0 bg-[#f7f5f5] backdrop-blur-sm w-[105%]">
                 <div className="flex items-center justify-between px-8 py-6">
                     <h3 className="text-2xl font-light tracking-wide text-gray-900">{title}</h3>
                     <svg
