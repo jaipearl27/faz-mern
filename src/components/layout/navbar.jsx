@@ -7,19 +7,12 @@ import Link from "next/link";
 
 const navItems = [
   { label: "HOME", href: "/" },
-  { label: "ABOUT US", href: "about" },
+  { label: "ABOUT US", href: "/about" },
   { label: "SERVICES", href: "services" },
   { label: "PRODUCTS", href: "products" },
   { label: "OUR CLIENTS", href: "clients" },
   { label: "TESTIMONIALS", href: "testimonials" },
-  {
-    label: "COMPANY", dropdown: [
-      { label: "TERMS & CONDITION", href: "terms-and-condition" },
-      { label: "PRIVACY POLICY", href: "privacy-policy" },
-      { label: "REFUND POLICY", href: "refund-policy" },
-    ]
-  },
-];
+]
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = React.useState(false);

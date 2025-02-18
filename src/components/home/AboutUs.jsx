@@ -1,5 +1,16 @@
 "use client";
 
+
+
+
+  const logos = [
+    "/logo/img-1.png",
+    "/logos/img-2",
+    "/logos/img-3.png",
+    "/logos/img-4.png",
+    "/logos/img-5.png",
+  ]
+
 const AboutUs = () => {
   return (
     <section className="py-16">
@@ -41,6 +52,12 @@ const AboutUs = () => {
           </span>
         </p>
       </div>
+
+
+
+
+
+
     </section>
   );
 };
