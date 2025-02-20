@@ -42,7 +42,7 @@ export function Navbar() {
         <div className="flex h-16 items-center justify-between lg:h-20">
           {/* Logo can be added here */}
           <div>
-            <Link href="/"><img src="/VPRO_LOGO.png" alt="logo small" className="w-[80px]" /></Link>
+            <Link href="/"><img src="/VPRO_LOGO.png" alt="logo small" className="w-[80px] p-2" /></Link>
           </div>
 
           <div className="flex-1" />

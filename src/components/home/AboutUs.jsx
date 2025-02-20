@@ -3,19 +3,19 @@
 
 
 
-  const logos = [
-    "/logo/img-1.png",
-    "/logos/img-2",
-    "/logos/img-3.png",
-    "/logos/img-4.png",
-    "/logos/img-5.png",
-  ]
+const logos = [
+  "/logo/img-1.png",
+  "/logos/img-2",
+  "/logos/img-3.png",
+  "/logos/img-4.png",
+  "/logos/img-5.png",
+]
 
 const AboutUs = () => {
   return (
     <section className="py-16">
       <div className="container mx-auto px-4 space-y-5">
-        <h2 className="text-4xl font-normal">ABOUT US</h2>
+        <h2 className="text-black text-3xl font-semibold uppercase mx-auto mb-10 text-center">ABOUT US</h2>
         <p className="text-lg font-light gap-4 grid grid-cols-2">
           <span>
             Welcome to VPRO TECH SOLUTIONS, where excellence in contracting

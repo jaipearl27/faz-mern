@@ -21,7 +21,7 @@ const Company = [
 export function Footer() {
   return (
     <footer className="bg-white text-gray-800 py-16 px-4">
-      <div className="max-w-7xl mx-auto">
+      <div className="px-4">
         {/* Top Section */}
         <div className="flex flex-col md:flex-row justify-between items-center border-b border-gray-300 pb-4">
           {/* Legal Links (Left side) */}

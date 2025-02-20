@@ -3,6 +3,7 @@ import AboutUs from '@/components/home/AboutUs';
 import Hero from '@/components/home/Hero';
 import Services from '@/components/home/Services';
 import Products from '@/components/home/Products';
+import Clients from '@/components/home/Clients';
 
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
       <AboutUs id="about" />
       <Services />
       <Products />
+      <Clients />
     </>
   );
 }

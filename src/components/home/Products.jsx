@@ -56,7 +56,7 @@ export default function Products() {
   return (
     <section className="py-16">
       <div className="container mx-auto px-4 space-y-5">
-        <h2 className="text-4xl font-normal">Products</h2>
+        <h2 className="text-black text-3xl font-semibold uppercase mx-auto mb-10 text-center">PRODUCTS</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product, index) => (
             <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden">
