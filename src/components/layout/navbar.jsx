@@ -11,7 +11,7 @@ const navItems = [
   { label: "SERVICES", href: "services" },
   { label: "PRODUCTS", href: "products" },
   { label: "OUR CLIENTS", href: "clients" },
-  { label: "TESTIMONIALS", href: "testimonials" },
+  // { label: "TESTIMONIALS", href: "testimonials" },
 ]
 
 export function Navbar() {
@@ -42,7 +42,7 @@ export function Navbar() {
         <div className="flex h-16 items-center justify-between lg:h-20">
           {/* Logo can be added here */}
           <div>
-            <img src="/VPRO_LOGO.png" alt="logo small" className="w-[80px]" />
+            <Link href="/"><img src="/VPRO_LOGO.png" alt="logo small" className="w-[80px]" /></Link>
           </div>
 
           <div className="flex-1" />

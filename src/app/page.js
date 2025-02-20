@@ -1,17 +1,18 @@
-import AboutUs from '@/components/home/AboutUs';
 import Link from 'next/link';
+import AboutUs from '@/components/home/AboutUs';
+import Hero from '@/components/home/Hero';
+import Services from '@/components/home/Services';
+import Products from '@/components/home/Products';
+
 
 export default function Home() {
   return (
     <>
-      <nav>
-        <Link href="/">Home</Link>
-        <Link href="/about">About Us</Link>
-      </nav>
-      <Hero id="home"/>
-      <AboutUs id="about"/>
+
+      <Hero id="home" />
+      <AboutUs id="about" />
       <Services />
-      <Project />
+      <Products />
     </>
   );
 }
