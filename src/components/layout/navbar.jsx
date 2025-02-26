@@ -8,9 +8,9 @@ import Link from "next/link";
 const navItems = [
   { label: "HOME", href: "/" },
   { label: "ABOUT US", href: "/about" },
-  { label: "SERVICES", href: "/services" },
-  { label: "PRODUCTS", href: "/products" },
-  { label: "OUR CLIENTS", href: "/our-clients" },
+  { label: "SERVICES", href: "services" },
+  { label: "PRODUCTS", href: "products" },
+  { label: "OUR CLIENTS", href: "clients" },
   { label: "TESTIMONIALS", href: "testimonials" },
 ]
 
@@ -42,7 +42,7 @@ export function Navbar() {
         <div className="flex h-16 items-center justify-between lg:h-20">
           {/* Logo can be added here */}
           <div>
-            <img src="/VPRO_LOGO.png" alt="logo small" className="w-[80px]" />
+            <Link href="/"><img src="/VPRO_LOGO.png" alt="logo small" className="w-[80px] p-2" /></Link>
           </div>
 
           <div className="flex-1" />

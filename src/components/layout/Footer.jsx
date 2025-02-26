@@ -8,29 +8,28 @@ const Items = [
   { label: "SERVICES", href: "services" },
   { label: "PRODUCTS", href: "products" },
   { label: "OUR CLIENTS", href: "clients" },
-  { label: "TESTIMONIALS", href: "testimonials" },
-  {
-    label: "COMPANY", 
-    dropdown: [
-      { label: "TERMS & CONDITION", href: "terms-and-condition" },
-      { label: "PRIVACY POLICY", href: "privacy-policy" },
-      { label: "REFUND POLICY", href: "refund-policy" },
-    ]
-  },
 ];
+
+
+const Company = [
+  { label: "TERMS & CONDITION", href: "terms-and-condition" },
+  { label: "PRIVACY POLICY", href: "privacy-policy" },
+  { label: "REFUND POLICY", href: "refund-policy" },
+]
+
 
 export function Footer() {
   return (
     <footer className="bg-white text-gray-800 py-16 px-4">
-      <div className="max-w-7xl mx-auto">
+      <div className="px-4">
         {/* Top Section */}
         <div className="flex flex-col md:flex-row justify-between items-center border-b border-gray-300 pb-4">
           {/* Legal Links (Left side) */}
-        
+
 
           {/* Social Icons */}
           <div className="flex gap-4 mt-4 md:mt-0">
-       <img src="/VPRO_LOGO_WIDE.jpeg" alt="" className="w-[350px]" />
+            <img src="/VPRO_LOGO_WIDE.jpeg" alt="" className="w-[350px]" />
           </div>
         </div>
 
@@ -48,14 +47,14 @@ export function Footer() {
           {/* Right Side: Company Dropdown */}
           <div className="flex flex-col md:flex-row gap-10 mt-4 md:mt-0 text-sm font-medium">
             <div className="flex flex-row gap-10">
-            
-              {Items[6]?.dropdown?.map((dropdownItem) => (
+
+              {Company?.map((item) => (
                 <a
-                  key={dropdownItem.label}
-                  href={dropdownItem.href}
+                  key={item.label}
+                  href={item.href}
                   className="hover:underline text-gray-600"
                 >
-                  {dropdownItem.label}
+                  {item.label}
                 </a>
               ))}
             </div>
