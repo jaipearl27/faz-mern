@@ -6,13 +6,15 @@
 //     onClick?: () => void
 // }
 
+"use client"
+
 export default function Card({ title, imageUrl, onClick }) {
     return (
         <div
             onClick={onClick}
-            className="group relative w-full max-w-4xl overflow-hidden rounded-3xl bg-white cursor-pointer"
+            className="group relative w-[90%] max-w-3xl overflow-hidden rounded-3xl bg-white cursor-pointer"
         >
-            <div className="aspect-[16/10] w-full">
+            <div className="aspect-[16/10] w-full max-h-[400px]">
                 <img
                     src={imageUrl || "/placeholder.svg"}
                     alt={title}
@@ -20,7 +22,7 @@ export default function Card({ title, imageUrl, onClick }) {
                 />
             </div>
 
-            <div className="absolute bottom-3 left-0 right-0 bg-[#f7f5f5] backdrop-blur-sm w-[105%]">
+            <div className="absolute bottom-3 left-0 right-0 bg-[#f7f5f5] backdrop-blur-sm w-full">
                 <div className="flex items-center justify-between px-8 py-6">
                     <h3 className="text-2xl font-light tracking-wide text-gray-900">{title}</h3>
                     <svg
