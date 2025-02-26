@@ -12,43 +12,43 @@ const products = [
     category: "Office Furniture",
     description:
       "L-Shaped Desks with Overhead cabinets, Cubicles, Wardrobes, Cabinets, Conference tables, Leather Sofas, Doors, Reception Desks, Chairs, Steel Cabinets, 4 – Drawer Cabinets.",
-    image: "/products/officeFurniture.jpg",
+banner: "/products/officeFurniture.jpg",
   },
   {
     category: "Bedding Components",
     description:
       "King & Queen Mattress, Comforters, Pillowcases, Linens, Fitted sheets, Flat sheets, Duvets, Bunk beds, Steel cabinets, Quilts, Night stands, Bed side Tables, Lamps, Storage and space organization.",
-    image: "/products/officeFurniture.jpg",
+banner: "/products/officeFurniture.jpg",
   },
   {
     category: "Electrical Products",
     description:
       "Electrical Cables (Armored & Non-Armored), Bare Conductors, Conduits, Panel boards, Transformers, Generators, Light Towers, Circuit Breakers, Load banks, Cable Connectors, Switches, Lights, Bulbs, Relays, Cable Trays, Contactors, UPS, Flood Lights, Maxcell, Anixter, Panduit, Cameras / CCTV etc.",
-    image: "/products/officeFurniture.jpg",
+banner: "/products/officeFurniture.jpg",
   },
   {
     category: "Networking Products",
     description:
       "Networking cables, Routers, Switches, Hubs, Modems, CISCO, Meraki Cloud-managed, Network adapters Repeaters, Ethernet Devices, Couplers, Access Points etc.",
-    image: "/products/officeFurniture.jpg",
+banner: "/products/officeFurniture.jpg",
   },
   {
     category: "HVAC Products",
     description:
       "Copeland Compressors, Ducted Split Units, Air Conditioners, Ducts, Ductless Systems, Dehumidifiers, Thermostat, Chillers, Air Purifiers, Heat pumps, Refrigerant gases, Copper pipes & Fittings etc.",
-    image: "/products/officeFurniture.jpg",
+banner: "/products/officeFurniture.jpg",
   },
   {
     category: "Electronics",
     description:
       "Washer & Dryers, Televisions, Laptops, Monitors, Printers, Scanners, Xerox Machines, Shredders, Refrigerators, Dehumidifiers, Speakers, Projector Screens, Ovens, Cell phones etc.",
-    image: "/products/officeFurniture.jpg",
+banner: "/products/officeFurniture.jpg",
   },
   {
     category: "Mechanical Components",
     description:
       "Air Compressor, Air blowers, Cooling fans, Baggage Scanner Machine, Motors, Pumps, Ball bearings, Gears, Bolts, Pulleys, Springs, Screws, Urinals, Sink, Eye lags, Cutting tools, Hand tools etc.",
-    image: "/products/officeFurniture.jpg",
+banner: "/products/officeFurniture.jpg",
   },
 ];
 
@@ -61,7 +61,7 @@ export default function Products() {
           {products.map((product, index) => (
             <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden">
               <Image
-                src={product.image}
+                src={product.banner}
                 alt={product.category}
                 width={400}
                 height={250}
