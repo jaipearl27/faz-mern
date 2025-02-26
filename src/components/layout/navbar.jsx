@@ -11,7 +11,7 @@ const navItems = [
   { label: "SERVICES", href: "services" },
   { label: "PRODUCTS", href: "products" },
   { label: "OUR CLIENTS", href: "clients" },
-  // { label: "TESTIMONIALS", href: "testimonials" },
+  { label: "TESTIMONIALS", href: "testimonials" },
 ]
 
 export function Navbar() {

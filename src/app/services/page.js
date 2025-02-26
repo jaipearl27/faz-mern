@@ -1,8 +1,11 @@
-export default function Services() {
+import Services from "@/components/home/Services";
+
+
+
+export default function page() {
     return (
-        <div>
-            <h1>Services</h1>
-        </div>
+        <>
+               <Services/></>
+
     )
 }
-
