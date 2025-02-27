@@ -8,10 +8,10 @@ import Link from "next/link";
 const navItems = [
   { label: "HOME", href: "/" },
   { label: "ABOUT US", href: "/about" },
-  { label: "SERVICES", href: "services" },
-  { label: "PRODUCTS", href: "products" },
-  { label: "OUR CLIENTS", href: "clients" },
-  { label: "TESTIMONIALS", href: "testimonials" },
+  { label: "SERVICES", href: "/services" },
+  { label: "PRODUCTS", href: "/products" },
+  { label: "OUR CLIENTS", href: "/clients" },
+  { label: "TESTIMONIALS", href: "/testimonials" },
 ]
 
 export function Navbar() {
@@ -94,7 +94,7 @@ export function Navbar() {
             ))}
 
             <a
-              href="#contact"
+              href="/contact"
               className="inline-flex items-center rounded-full text-white bg-green-600 px-6 py-2 text-sm font-medium  transition-colors hover:bg-green-700"
             >
               LETS CONNECT
@@ -129,7 +129,7 @@ export function Navbar() {
                 </a>
               ))}
               <a
-                href="#contact"
+                href="/contact"
                 className="inline-flex items-center rounded-full bg-purple-600 px-6 py-2 text-sm font-medium  transition-colors hover:bg-purple-700"
               >
                 LETS CONNECT
