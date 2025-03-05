@@ -1,13 +1,20 @@
+"use client"
 import React from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
+import { usePathname } from 'next/navigation';
+
+
 
 
 
 export default function Services({ data }) {
+
+    const  pathname=usePathname()
+ 
     return (
         <section className="py-16 bg-gray-100">
             <div className="container mx-auto px-4 space-y-5">
@@ -28,6 +35,7 @@ export default function Services({ data }) {
                             </div>
                         </div>
                     ))}
+                     {pathname !== "/services" && (
                     <div className='flex justify-center items-center'>
                         <Link href="/services" className='flex justify-center items-center text-green-600 text-xl px-3 py-4 group hover:text-green-700 transition duration-300'>
                             VIEW ALL SERVICES
@@ -36,7 +44,8 @@ export default function Services({ data }) {
                             </span>
                         </Link>
                     </div>
-                </div>
+                )}
+            </div>
             </div>
         </section>
     );
