@@ -15,7 +15,7 @@ const data = [
                 banner: "/products/officeFurniture.jpg",
             },
             {
-                title: "L-Shaped desk workstation with glass panels",
+                title: "Electric height adjustable standing desk",
                 slug: "l-shaped-desk-glass",
                 banner:"/products/office-furniture/L-Shaped desk workstation with glass panels.png",
             }, {
@@ -24,12 +24,12 @@ const data = [
                 banner:"/products/office-furniture/L-shap.png",
             },
             {
-                title: "L-Shaped desk workstation with glass panels",
+                title: "Conference Table",
                 slug: "l-shaped-desk-glass",
                 banner:"/products/office-furniture/Conference Table.png",
             },
             {
-                title: "L-Shaped desk workstation with glass panels",
+                title: "Straight desk with modesty panels &amp; Fabric Partition",
                 slug: "l-shaped-desk-glass",
                 banner:"/products/office-furniture/Straight desk with modesty panels & Fabric Partition.png",
             }
@@ -64,9 +64,109 @@ const data = [
                 title: "Wardrobe with / without glass doors",
                 banner: "/officeFurniture/LShapeWithMobilePedestale.png",
             },
+            {
+                title: "Electrical Products",
+                slug: "electrical",
+                banner: "/products/electricalProducts1.png",
+                description:"Electrical Cables (Armored &amp; Non-Armored), Bare Conductors, Conduits, Panel boards,Transformers, Generators, Light Towers, Circuit Breakers, Load banks, Cable Connectors, Switches, Lights, Bulbs, Relays, Cable Trays, Contactors, UPS, Flood Lights,  Maxcell, Anixter, Panduit, Cameras / CCTV etc.,",
+                products: [
+                    {
+                        title: "electrical",
+                        banner: "/products/electricalProducts2.png",
+                    },
+                    // {
+                    //     title: "L-Shaped desk workstation with glass panels",
+                    //     banner: "/networking.png",
+                    // },
+                    // {
+                    //     title: "Electric height adjustable standing desk",
+                    //     banner: "/officeFurniture/LShapeWithMobilePedestale.png",
+                    // },
+                    // {
+                    //     title: "Straight desk with modesty panels & Fabric Partition",
+                    //     banner: "/officeFurniture/LShapeWithMobilePedestale.png",
+                    // },
+                    {
+                        title: "Wardrobe with / without glass doors",
+                        banner: "/officeFurniture/LShapeWithMobilePedestale.png",
+                    },
+                    {
+                        title: "Wardrobe with / without glass doors",
+                        banner: "/officeFurniture/LShapeWithMobilePedestale.png",
+                    },
+                    {
+                        title: "L-Shape desks with mobile pedestal",
+                        banner: "/officeFurniture/LShapeWithMobilePedestale.png",
+                    },
+                    {
+                        title: "L-Shape desks with mobile pedestal",
+                        banner: "/officeFurniture/LShapeWithMobilePedestale.png",
+                    },
+                    {
+                        title: "L-Shape desks with mobile pedestal",
+                        banner: "/officeFurniture/LShapeWithMobilePedestale.png",
+                    },
+                    {
+                        title: "L-Shape desks with mobile pedestal",
+                        banner: "/officeFurniture/LShapeWithMobilePedestale.png",
+                    },
+                ]
+            },  
         
         ]
     },
+    {
+        title: "Electronic Products",
+        slug: "Electronic",
+        banner: "/products/electronicProducts.png",
+        description:"Washer &amp; Dryers, Televisions, Laptops, Monitors, Printers, Scanners, Xerox Machines, Shredders, Refrigerators, Dehumidifiers,Speakers, Projector Screens, Ovens, Cell phones etc.,",
+        products: [
+            {
+                title: "Television with TV stands",
+                banner: "/products/electronic/tv.png",
+            },
+            {
+                title: "Refrigerators",
+                banner: "/products/electronic/ref.png",
+            },
+                        {
+                title: "Microwaves",
+                banner: "/products/electronic/mw.png",
+            },
+            {
+                title: "Coffee makers",
+                banner: "/products/electronic/cm.png",
+            },
+            {
+                title: "Toasters and blenders",
+                banner: "/products/electronic/tb.png",
+            },
+            {
+                title: "Washing machines and dryers",
+                banner: "/products/electronic/wmd.png",
+            },
+            {
+                title: "Gaming chairs and desks (for MWR lounges)",
+                banner: "/products/electronic/gamingchair.png",
+            },
+            {
+                title: "Desk Lamp",
+                banner: "/products/electronic/lamp.png", 
+            },
+            {
+                title: "L-Shape desks with mobile pedestal",
+                banner: "/products/electronic/TVs and entertainment systems.png",
+            },
+            {
+                title:"Dehumidifiers",
+                banner:"/products/electronic/Dehumidifiers.png"
+            }
+            // {
+            //     title: "L-Shape desks with mobile pedestal",
+            //     banner: "/officeFurniture/LShapeWithMobilePedestale.png",
+            // },
+        ]
+    },  
 ];
 
 export default function Page() {
@@ -80,7 +180,7 @@ export default function Page() {
     }
 
     return (
-        <div className="container mx-auto px-4 py-10">
+        <div className="container mx-auto px-4 py-10 ">
             {/* Hero Section */}
             <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] flex items-center justify-center overflow-hidden rounded-xl shadow-lg">
                 <Image src={category.banner} layout="fill" objectFit="cover" alt={category.title} />
@@ -94,7 +194,7 @@ export default function Page() {
             </p>
 
             {/* Product Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10 ">
                 {category.products.map((product, index) => (
                     <div 
                         key={index} 
@@ -103,9 +203,9 @@ export default function Page() {
                         <Image 
                             src={product?.banner} 
                             width={300} 
-                            height={200} 
+                            height={300} 
                             alt={product.title} 
-                            className="rounded-lg object-cover w-full h-48"
+                            className="rounded-lg w-full h-48"
                         />
                         <h2 className="text-xl font-semibold mt-4 text-center">{product.title}</h2>
                     </div>
