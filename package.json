@@ -12,6 +12,7 @@
     "@base-ui-components/react": "^1.0.0-alpha.6",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@kinde-oss/kinde-auth-nextjs": "^2.5.3",
     "@mui/icons-material": "^6.4.5",
     "@mui/material": "^6.4.5",
     "cloudinary": "^2.5.1",
