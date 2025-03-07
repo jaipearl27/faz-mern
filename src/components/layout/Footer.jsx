@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-
+import { RegisterLink, LoginLink, LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
+ 
 const Items = [
   { label: "HOME", href: "/" },
   { label: "ABOUT US", href: "about" },
@@ -9,7 +10,6 @@ const Items = [
   { label: "PRODUCTS", href: "products" },
   { label: "OUR CLIENTS", href: "clients" },
 ];
-
 
 const Company = [
   { label: "TERMS & CONDITION", href: "terms-and-condition" },
@@ -19,6 +19,16 @@ const Company = [
 
 
 export function Footer() {
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false)
+
+  React.useEffect(() => {
+    async function fetchAuthStatus() {
+      const res = await fetch("/api/auth-status");
+      const data = await res.json();
+      setIsLoggedIn(data.isLoggedIn);
+    }
+    fetchAuthStatus();
+  }, []);
   return (
     <footer className="bg-white text-gray-800 py-16 px-4">
       <div className="px-4">
@@ -57,6 +67,11 @@ export function Footer() {
                   {item.label}
                 </a>
               ))}
+              <div className="flex flex-col gap-2 sm:flex-row">
+                {!isLoggedIn ?  <> <LoginLink className="text-nowrap">Admin Sign In</LoginLink>
+                <RegisterLink className="text-nowrap">User Sign up</RegisterLink></>: <LogoutLink>Sign Out</LogoutLink>}
+                
+              </div>
             </div>
           </div>
         </div>
