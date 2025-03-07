@@ -167,6 +167,70 @@ const data = [
             // },
         ]
     },  
+
+
+    {
+        title: "Lodging Catalogue",
+        slug: "Lodging-Catalogue",
+        banner: "/lodging/Heavy Duty Bunk beds.png",
+        description:"Prefabricated PEB buildings such as medical facilities and office spaces are tailored according to customer-provided drawings.",
+        products: [
+            {
+                title: "Twin XL beds",
+                banner: "/lodging/Twin XL beds.png",
+            },
+            {
+                title: "Full-size or queen-size beds",
+                banner: "/lodging/Full-size or queen-size beds.png",
+            },
+            {
+                title: "Orthopedic mattresses (for medical or long-term use)",
+                banner: "/lodging/Orthopedic mattresses (for medical or long-term use).png",
+            },
+            {
+                title: "Pillows and pillowcases",
+                banner: "/lodging/Pillows and pillowcases.png",
+            },
+            {
+                title: "Flat and fitted sheets (cotton or polyester blends)",
+                banner: "/lodging/ Flat and fitted sheets (cotton or polyester blends).png",
+            },
+            {
+                title: "Standard desk chairs (ergonomic)",
+                banner: "/lodging/Standard desk chairs (ergonomic).png",
+            },
+            {
+                title: "Lounge chairs (for dorms or common areas)",
+                banner: "/lodging/Lounge chairs (for dorms or common areas).png",
+            },
+            {
+                title: "Dining chairs",
+                banner: "/lodging/chair.png",
+            },
+            {
+                title: "Desks and Tables",
+                banner: "/lodging/Desks and Tables.png",
+            },
+            {
+                title: "Nightstands or bedside tables",
+                banner: "/lodging/Nightstands or bedside tables.png",
+            },
+            {
+                title:"Wardrobes or closets",
+                banner:"/lodging/Wardrobes or closets.png"
+            },
+            {
+                title:"Lockers (for individual secure storage)",
+                banner:"/lodging/Lockers (for individual secure storage.png"
+            },
+            {
+                title:"Footlockers or under-bed storage boxes",
+                banner:"/lodging/Footlockers or under-bed storage boxes.png"
+            }
+        ]
+    },
+    
+
 ];
 
 export default function Page() {
@@ -183,7 +247,7 @@ export default function Page() {
         <div className="container mx-auto px-4 py-10 ">
             {/* Hero Section */}
             <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] flex items-center justify-center overflow-hidden rounded-xl shadow-lg">
-                <Image src={category.banner} layout="fill" objectFit="cover" alt={category.title} />
+                <Image src={category.banner} layout="fill" objectFit="cover" alt={category.title}  />
                 <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                     <h1 className="text-4xl md:text-5xl font-bold text-white">{category.title}</h1>
                 </div>
@@ -198,14 +262,14 @@ export default function Page() {
                 {category.products.map((product, index) => (
                     <div 
                         key={index} 
-                        className="bg-white p-4 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 cursor-pointer"
+                        className="bg-white  p-4 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 cursor-pointer"
                     >
                         <Image 
                             src={product?.banner} 
                             width={300} 
                             height={300} 
                             alt={product.title} 
-                            className="rounded-lg w-full h-48"
+                            className="rounded-lg w-full h-48 "
                         />
                         <h2 className="text-xl font-semibold mt-4 text-center">{product.title}</h2>
                     </div>

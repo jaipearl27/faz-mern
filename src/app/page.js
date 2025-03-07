@@ -9,17 +9,23 @@ const services = [
   {
     title: "Aluminium Tents",
     banner: "/services/aluminiumTents.png",
-    description: "Supply and lease of Aluminum Tents with Lights, Air Conditioners, Bunk Beds, Floor, Doors, Fire Extinguishers and Charging points.",
+    description: "Supply and lease of Aluminum Tents with Lights, Air Conditioners, Bunk Beds, Floor, Doors, Fire Extinguishers and Charging points. SSupply and lease of Aluminum Tents with Lights, Air Conditioners, Bunk Beds, Floor, Doors, Fire Extinguishers and Charging points.",
     // onClick: console.log('aluminiumTents')
   },
   {
     title: "Box Trucks / Buses Transportation",
     banner: "/services/boxTrucks.png",
-    description: "We offer trucks for transporting passenger’s luggage and buses for moving passengers between different points.",
+    description: "We offer trucks for transporting passenger’s luggage and buses for moving passengers between different points. upply and lease of Aluminum Tents with Lights, Air Conditioners, Bunk Beds, Floor, Doors, Fire Extinguishers and Charging points.",
     // onClick: console.log('2')
   },
   {
     title: "Construction Vehicles",
+    banner: "/services/constructionVehicles.png",
+    description: "Short / Long term lease of Construction Vehicles (Boom Loaders Compactors, Forklift, Scissor lifts, Manlifts etc.)",
+    // onClick: console.log('2')
+  },
+  {
+    title: "Construction Vehicles 23",
     banner: "/services/constructionVehicles.png",
     description: "Short / Long term lease of Construction Vehicles (Boom Loaders Compactors, Forklift, Scissor lifts, Manlifts etc.)",
     // onClick: console.log('2')

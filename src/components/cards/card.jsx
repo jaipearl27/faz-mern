@@ -9,7 +9,9 @@ export const CardComponent = ({ data }) => {
   const pathname = usePathname();
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <>
+    <div className="flex flex-col">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
       {data.map((product, index) => (
         <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden">
           <Image
@@ -26,9 +28,15 @@ export const CardComponent = ({ data }) => {
         </div>
       ))}
 
-      {/* ✅ Show "VIEW ALL PRODUCTS" as the 4th item in the grid */}
-      {pathname === "/" && (
-        <div className="flex justify-center items-center ">
+ 
+
+    </div>
+
+    {pathname === "/" && (
+      <div className="flex justify-between">
+              <div></div>
+        <div className="flex  justify-center items-center py-8 ">
+  
           <Link
             href="/products"
             className="flex items-center text-green-600 text-xl px-3 py-4 group hover:text-green-700 transition duration-300"
@@ -38,9 +46,11 @@ export const CardComponent = ({ data }) => {
               <ArrowForwardIosIcon fontSize="small" />
             </span>
           </Link>
-        </div>
+        </div></div>
 
       )}
     </div>
+
+    </>
   );
 };

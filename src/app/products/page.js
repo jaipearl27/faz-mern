@@ -583,7 +583,54 @@ const data = [
         ]
     }, 
 
-
+    {
+        title: "Lodging Catalogue",
+        slug: "Lodging-Catalogue",
+        banner: "/lodging/Heavy Duty Bunk beds.png",
+        description:"Prefabricated PEB buildings such as medical facilities and office spaces are tailored according to customer-provided drawings.",
+        products: [
+            {
+                title: "Twin XL beds",
+                banner: "/lodging/Twin XL beds.png",
+            },
+            {
+                title: "Full-size or queen-size beds",
+                banner: "/lodging/Full-size or queen-size beds.png",
+            },
+            {
+                title: "Orthopedic mattresses (for medical or long-term use)",
+                banner: "/lodging/Orthopedic mattresses (for medical or long-term use).png",
+            },
+            {
+                title: "Pillows and pillowcases",
+                banner: "/officeFurniture/LShapeWithMobilePedestale.png",
+            },
+            {
+                title: "Wardrobe with / without glass doors",
+                banner: "/officeFurniture/LShapeWithMobilePedestale.png",
+            },
+            {
+                title: "Wardrobe with / without glass doors",
+                banner: "/officeFurniture/LShapeWithMobilePedestale.png",
+            },
+            {
+                title: "L-Shape desks with mobile pedestal",
+                banner: "/officeFurniture/LShapeWithMobilePedestale.png",
+            },
+            {
+                title: "L-Shape desks with mobile pedestal",
+                banner: "/officeFurniture/LShapeWithMobilePedestale.png",
+            },
+            {
+                title: "L-Shape desks with mobile pedestal",
+                banner: "/officeFurniture/LShapeWithMobilePedestale.png",
+            },
+            {
+                title: "L-Shape desks with mobile pedestal",
+                banner: "/officeFurniture/LShapeWithMobilePedestale.png",
+            },
+        ]
+    },
 
 
 

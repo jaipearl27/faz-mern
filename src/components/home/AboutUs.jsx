@@ -16,7 +16,7 @@ const AboutUs = () => {
     <section className="py-16">
       <div className="container mx-auto px-4 space-y-5">
         <h2 className="text-black text-3xl font-semibold uppercase mx-auto mb-10 text-center">ABOUT US</h2>
-        <p className="text-lg font-light gap-4 grid grid-cols-2">
+        <p className="text-lg font-light gap-12 grid grid-cols-2">
           <span>
             Welcome to VPRO TECH SOLUTIONS, where excellence in contracting
             meets innovative solutions.

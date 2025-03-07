@@ -37,7 +37,7 @@ export default function Products() {
   const pathname = usePathname();
 
   // ✅ Fix: Ensure displayedProducts is always an array
-  const displayedProducts = pathname === "/" ? products.slice(0, 3) : products;
+  const displayedProducts = pathname === "/" ? products.slice(0, 4) : products;
 
   return (
     <section className="py-16">
