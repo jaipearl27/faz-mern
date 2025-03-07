@@ -9,8 +9,11 @@ export async function POST(req) {
         const formData = await req.formData();
         const title = formData.get("title"); // Get title
         const bannerFiles = formData.getAll("banner"); // Get all banner files
+        const categoryId = formData.get("category")
+        const price = formData.get("price")
+        const stock = formData.get("stock")
 
-        if (!title || bannerFiles.length === 0) {
+        if (!title || bannerFiles.length === 0 || !categoryId || !price || !stock ) {
             return NextResponse.json({
                 message: "Missing required fields"
             }, {
@@ -25,6 +28,9 @@ export async function POST(req) {
 
         const data = await Products.create({
             title,
+            category: categoryId,
+            price,
+            stock,
             banner: uploadedImages, // Store array of uploaded images
         });
 
@@ -53,3 +59,56 @@ export async function POST(req) {
     }
 }
 
+export async function GET(req) {
+    try {
+        const {
+            searchParams
+        } = new URL(req.url);
+        const categoryId = searchParams.get("categoryId");
+        const page = parseInt(searchParams.get("page") || "1", 10);
+        const limit = parseInt(searchParams.get("limit") || "10", 10); // Default: 10 items per page
+
+        if (!categoryId) {
+            return NextResponse.json({
+                message: "Category ID is required"
+            }, {
+                status: 400
+            });
+        }
+
+        // Pagination logic (skip items from previous pages)
+        const skip = (page - 1) * limit;
+
+        // Fetch products with pagination and selected fields only
+        const products = await Products.find({
+                category: categoryId
+            })
+            .select("title price stock banner") 
+            .populate("category")
+            .skip(skip)
+            .limit(limit);
+
+        // Get total product count for pagination metadata
+        const totalProducts = await Products.countDocuments({
+            category: categoryId
+        });
+
+        return NextResponse.json({
+            products,
+            currentPage: page,
+            totalPages: Math.ceil(totalProducts / limit),
+            totalProducts,
+            limit
+        }, {
+            status: 200
+        });
+
+    } catch (error) {
+        return NextResponse.json({
+            message: "Server error",
+            error: error.message
+        }, {
+            status: 500
+        });
+    }
+}

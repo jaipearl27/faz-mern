@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function SpecificProductCard({ data }) {
   // Destructure the data (including slug)
-  const { title, banner, description, slug } = data;
+  const { title, banner, shortDescription, slug } = data;
 
   return (
     <Link href={`/products/${slug}`} className="block">
@@ -12,7 +12,7 @@ export default function SpecificProductCard({ data }) {
         {/* Image with overlay */}
         <div className="relative h-96">
           <Image
-            src={banner}
+            src={banner[0]?.secure_url}
             alt={title}
             layout="fill"
             objectFit="cover"
@@ -26,7 +26,7 @@ export default function SpecificProductCard({ data }) {
         <div className="absolute bottom-0 p-6 w-full text-white">
           {/* Description */}
           <span className="block text-xs font-medium text-neutral-300 mb-1">
-            {description}
+            {shortDescription}
           </span>
 
           {/* Title */}
