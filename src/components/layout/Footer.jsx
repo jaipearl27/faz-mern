@@ -11,7 +11,6 @@ const Items = [
   { label: "OUR CLIENTS", href: "clients" },
 ];
 
-
 const Company = [
   { label: "TERMS & CONDITION", href: "terms-and-condition" },
   { label: "PRIVACY POLICY", href: "privacy-policy" },

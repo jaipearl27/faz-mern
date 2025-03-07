@@ -1,3 +1,6 @@
+import {
+  LogoutLink
+} from '@kinde-oss/kinde-auth-nextjs/components';
 import React from 'react';
 
 const Page = () => {
@@ -82,12 +85,9 @@ const Page = () => {
               Admin
             </span>
             <div className="relative">
-              <img
-                className="h-10 w-10 rounded-full"
-                src="/api/placeholder/40/40"
-                alt="Admin profile"
-              />
+               <LogoutLink> Sign Out </LogoutLink>
             </div>
+            
           </div>
         </div>
       </header>
