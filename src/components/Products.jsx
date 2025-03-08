@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import SpecificProductCard from "./core/specificProductCard";
 import axios from "axios";
-// import { headers } from "next/headers";
+ 
 
 const Products = ({ data, category = null }) => {
   const [productData, setProductData] = useState(null)

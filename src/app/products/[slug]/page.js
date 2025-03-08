@@ -1,7 +1,11 @@
 "use client";
 import { useParams } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
+    import {
+        useSearchParams
+    } from "next/navigation";
+import axios from "axios";
 
 const data = [
     {
@@ -235,8 +239,28 @@ const data = [
 
 export default function Page() {
     const { slug } = useParams();
-
+   const searchParams = useSearchParams();
+   const id = searchParams.get("categoryId"); // Extract 'id' from query params
     // Find the category based on slug
+    console.log("the category id is", id)
+
+    useEffect(()=>{
+      const fetchData = async()=>{
+        try {
+            const config = {
+                headers:{
+                    "Content-Type":"application/json"
+                }
+            }
+            const data = await axios.get(`/api/product?categoryId=${id}`,config)
+            console.log("the data is", data)
+        } catch (error) {
+            console.log(error.message)
+           return error 
+        }
+      }
+      fetchData()
+    },[id])
     const category = data.find((cat) => cat.slug === slug);
 
     if (!category) {

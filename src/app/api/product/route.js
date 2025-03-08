@@ -67,7 +67,7 @@ export async function GET(req) {
         const categoryId = searchParams.get("categoryId");
         const page = parseInt(searchParams.get("page") || "1", 10);
         const limit = parseInt(searchParams.get("limit") || "10", 10); // Default: 10 items per page
-
+         console.log("the data is", categoryId) 
         if (!categoryId) {
             return NextResponse.json({
                 message: "Category ID is required"
@@ -81,7 +81,7 @@ export async function GET(req) {
 
         // Fetch products with pagination and selected fields only
         const products = await Products.find({
-                category: categoryId
+                category:categoryId
             })
             .select("title price stock banner") 
             .populate("category")

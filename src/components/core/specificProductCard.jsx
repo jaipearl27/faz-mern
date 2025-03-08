@@ -7,7 +7,7 @@ export default function SpecificProductCard({ data }) {
   const { title, banner, shortDescription, slug } = data;
 
   return (
-    <Link href={`/products/${slug}`} className="block">
+    <Link href={`/products/${slug}?categoryId=${data._id}`} className="block">
       <div className="group relative w-80 rounded-2xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
         {/* Image with overlay */}
         <div className="relative h-96">
