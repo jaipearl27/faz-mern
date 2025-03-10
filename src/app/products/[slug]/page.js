@@ -1,6 +1,6 @@
 "use client";
 import { useParams } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
     import {
         useSearchParams
@@ -238,11 +238,12 @@ const data = [
 ];
 
 export default function Page() {
-    const { slug } = useParams();
+   const { slug } = useParams();
    const searchParams = useSearchParams();
    const id = searchParams.get("categoryId"); // Extract 'id' from query params
     // Find the category based on slug
     console.log("the category id is", id)
+  const [productData, setProductData] = useState([])
 
     useEffect(()=>{
       const fetchData = async()=>{
@@ -253,7 +254,9 @@ export default function Page() {
                 }
             }
             const data = await axios.get(`/api/product?categoryId=${id}`,config)
-            console.log("the data is", data)
+            const res = data?.data
+            console.log("the data is", res)
+            setProductData(res?.products)
         } catch (error) {
             console.log(error.message)
            return error 
@@ -261,35 +264,38 @@ export default function Page() {
       }
       fetchData()
     },[id])
-    const category = data.find((cat) => cat.slug === slug);
+     
+    console.log("the data is",productData)
 
-    if (!category) {
-        return <div className="text-center text-red-500 mt-10 text-2xl">Category not found!</div>;
-    }
+    // const category = data.find((cat) => cat.slug === slug);
+
+    // if (!category) {
+    //     return <div className="text-center text-red-500 mt-10 text-2xl">Category not found!</div>;
+    // }
 
     return (
         <div className="container mx-auto px-4 py-10 ">
             {/* Hero Section */}
             <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] flex items-center justify-center overflow-hidden rounded-xl shadow-lg">
-                <Image src={category.banner} layout="fill" objectFit="cover" alt={category.title}  />
+                <Image src={productData[0]?.category?.banner[0]?.secure_url} layout="fill" objectFit="cover" alt={productData[0]?.category?.title}  />
                 <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                    <h1 className="text-4xl md:text-5xl font-bold text-white">{category.title}</h1>
+                    <h1 className="text-4xl md:text-5xl font-bold text-white">{productData[0]?.category?.title}</h1>
                 </div>
             </div>
 
             <p className="mt-8 text-lg text-gray-700 text-center">
-                Explore our <span className="font-semibold">{category.title}</span> collection!
+                Explore our <span className="font-semibold">{productData?.[0]?.category?.title}</span> collection!
             </p>
 
             {/* Product Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10 ">
-                {category.products.map((product, index) => (
+                {productData.map((product, index) => (
                     <div 
                         key={index} 
                         className="bg-white  p-4 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 cursor-pointer"
                     >
                         <Image 
-                            src={product?.banner} 
+                            src={product?.banner[0].secure_url} 
                             width={300} 
                             height={300} 
                             alt={product.title} 
