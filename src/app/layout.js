@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { FooterWrapper } from "@/components/LayoutWrappers/FooterWrapper";
 import { NavbarWrapper } from "@/components/LayoutWrappers/NavbarWrapper";
+import { ReduxProvider } from "@/lib/redux/Provider";
 // import { Navbar } from "@/components/layout/navbar";
 // import { Footer } from "@/components/layout/Footer";
  
@@ -28,9 +29,12 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NavbarWrapper />
-        <main>
-          {children}
-        </main>
+        <ReduxProvider>
+           <main> 
+            {children} 
+            </main>
+        </ReduxProvider>
+        
         <FooterWrapper />
       </body>
     </html>
