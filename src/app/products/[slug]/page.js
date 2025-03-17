@@ -6,244 +6,45 @@ import Image from "next/image";
         useSearchParams
     } from "next/navigation";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "@/lib/redux/actions/productAction";
+import { useForm } from "react-hook-form";
 
-const data = [
-    {
-        title: "Office Furniture",
-        slug: "office-furniture",
-        banner: "/products/officeFurniture.jpg",
-        products: [
-            {
-                title: "L-Shape desks with mobile pedestal",
-                slug: "l-shape-desk",
-                banner: "/products/officeFurniture.jpg",
-            },
-            {
-                title: "Electric height adjustable standing desk",
-                slug: "l-shaped-desk-glass",
-                banner:"/products/office-furniture/L-Shaped desk workstation with glass panels.png",
-            }, {
-                title: "L-Shaped desk workstation with glass panels",
-                slug: "l-shaped-desk-glass",
-                banner:"/products/office-furniture/L-shap.png",
-            },
-            {
-                title: "Conference Table",
-                slug: "l-shaped-desk-glass",
-                banner:"/products/office-furniture/Conference Table.png",
-            },
-            {
-                title: "Straight desk with modesty panels &amp; Fabric Partition",
-                slug: "l-shaped-desk-glass",
-                banner:"/products/office-furniture/Straight desk with modesty panels & Fabric Partition.png",
-            }
-        ]
-    },
-    {
-        title: "networking",
-        slug: "networking",
-        banner: "/products/networking-1.png",
-        products: [
-            {
-                title: "Routers ",
-                banner: "/products/networking.png",
-            },
-            {
-                title: "L-Shaped desk workstation with glass panels",
-                banner: "/products/networking/switch.png",
-            },
-            {
-                title: "Electric height adjustable standing desk",
-                banner: "/products/networking/VPN-gateway.png",
-            },
-            {
-                title: "Straight desk with modesty panels & Fabric Partition",
-                banner: "/products/networking/mobile.png",
-            },
-            {
-                title: "Wardrobe with / without glass doors",
-                banner: "/officeFurniture/LShapeWithMobilePedestale.png",
-            },
-            {
-                title: "Wardrobe with / without glass doors",
-                banner: "/officeFurniture/LShapeWithMobilePedestale.png",
-            },
-            {
-                title: "Electrical Products",
-                slug: "electrical",
-                banner: "/products/electricalProducts1.png",
-                description:"Electrical Cables (Armored &amp; Non-Armored), Bare Conductors, Conduits, Panel boards,Transformers, Generators, Light Towers, Circuit Breakers, Load banks, Cable Connectors, Switches, Lights, Bulbs, Relays, Cable Trays, Contactors, UPS, Flood Lights,  Maxcell, Anixter, Panduit, Cameras / CCTV etc.,",
-                products: [
-                    {
-                        title: "electrical",
-                        banner: "/products/electricalProducts2.png",
-                    },
-                    // {
-                    //     title: "L-Shaped desk workstation with glass panels",
-                    //     banner: "/networking.png",
-                    // },
-                    // {
-                    //     title: "Electric height adjustable standing desk",
-                    //     banner: "/officeFurniture/LShapeWithMobilePedestale.png",
-                    // },
-                    // {
-                    //     title: "Straight desk with modesty panels & Fabric Partition",
-                    //     banner: "/officeFurniture/LShapeWithMobilePedestale.png",
-                    // },
-                    {
-                        title: "Wardrobe with / without glass doors",
-                        banner: "/officeFurniture/LShapeWithMobilePedestale.png",
-                    },
-                    {
-                        title: "Wardrobe with / without glass doors",
-                        banner: "/officeFurniture/LShapeWithMobilePedestale.png",
-                    },
-                    {
-                        title: "L-Shape desks with mobile pedestal",
-                        banner: "/officeFurniture/LShapeWithMobilePedestale.png",
-                    },
-                    {
-                        title: "L-Shape desks with mobile pedestal",
-                        banner: "/officeFurniture/LShapeWithMobilePedestale.png",
-                    },
-                    {
-                        title: "L-Shape desks with mobile pedestal",
-                        banner: "/officeFurniture/LShapeWithMobilePedestale.png",
-                    },
-                    {
-                        title: "L-Shape desks with mobile pedestal",
-                        banner: "/officeFurniture/LShapeWithMobilePedestale.png",
-                    },
-                ]
-            },  
-        
-        ]
-    },
-    {
-        title: "Electronic Products",
-        slug: "Electronic",
-        banner: "/products/electronicProducts.png",
-        description:"Washer &amp; Dryers, Televisions, Laptops, Monitors, Printers, Scanners, Xerox Machines, Shredders, Refrigerators, Dehumidifiers,Speakers, Projector Screens, Ovens, Cell phones etc.,",
-        products: [
-            {
-                title: "Television with TV stands",
-                banner: "/products/electronic/tv.png",
-            },
-            {
-                title: "Refrigerators",
-                banner: "/products/electronic/ref.png",
-            },
-                        {
-                title: "Microwaves",
-                banner: "/products/electronic/mw.png",
-            },
-            {
-                title: "Coffee makers",
-                banner: "/products/electronic/cm.png",
-            },
-            {
-                title: "Toasters and blenders",
-                banner: "/products/electronic/tb.png",
-            },
-            {
-                title: "Washing machines and dryers",
-                banner: "/products/electronic/wmd.png",
-            },
-            {
-                title: "Gaming chairs and desks (for MWR lounges)",
-                banner: "/products/electronic/gamingchair.png",
-            },
-            {
-                title: "Desk Lamp",
-                banner: "/products/electronic/lamp.png", 
-            },
-            {
-                title: "L-Shape desks with mobile pedestal",
-                banner: "/products/electronic/TVs and entertainment systems.png",
-            },
-            {
-                title:"Dehumidifiers",
-                banner:"/products/electronic/Dehumidifiers.png"
-            }
-            // {
-            //     title: "L-Shape desks with mobile pedestal",
-            //     banner: "/officeFurniture/LShapeWithMobilePedestale.png",
-            // },
-        ]
-    },  
-
-
-    {
-        title: "Lodging Catalogue",
-        slug: "Lodging-Catalogue",
-        banner: "/lodging/Heavy Duty Bunk beds.png",
-        description:"Prefabricated PEB buildings such as medical facilities and office spaces are tailored according to customer-provided drawings.",
-        products: [
-            {
-                title: "Twin XL beds",
-                banner: "/lodging/Twin XL beds.png",
-            },
-            {
-                title: "Full-size or queen-size beds",
-                banner: "/lodging/Full-size or queen-size beds.png",
-            },
-            {
-                title: "Orthopedic mattresses (for medical or long-term use)",
-                banner: "/lodging/Orthopedic mattresses (for medical or long-term use).png",
-            },
-            {
-                title: "Pillows and pillowcases",
-                banner: "/lodging/Pillows and pillowcases.png",
-            },
-            {
-                title: "Flat and fitted sheets (cotton or polyester blends)",
-                banner: "/lodging/ Flat and fitted sheets (cotton or polyester blends).png",
-            },
-            {
-                title: "Standard desk chairs (ergonomic)",
-                banner: "/lodging/Standard desk chairs (ergonomic).png",
-            },
-            {
-                title: "Lounge chairs (for dorms or common areas)",
-                banner: "/lodging/Lounge chairs (for dorms or common areas).png",
-            },
-            {
-                title: "Dining chairs",
-                banner: "/lodging/chair.png",
-            },
-            {
-                title: "Desks and Tables",
-                banner: "/lodging/Desks and Tables.png",
-            },
-            {
-                title: "Nightstands or bedside tables",
-                banner: "/lodging/Nightstands or bedside tables.png",
-            },
-            {
-                title:"Wardrobes or closets",
-                banner:"/lodging/Wardrobes or closets.png"
-            },
-            {
-                title:"Lockers (for individual secure storage)",
-                banner:"/lodging/Lockers (for individual secure storage.png"
-            },
-            {
-                title:"Footlockers or under-bed storage boxes",
-                banner:"/lodging/Footlockers or under-bed storage boxes.png"
-            }
-        ]
-    },
-    
-
-];
-
+ 
 export default function Page() {
    const { slug } = useParams();
+   const dispatch = useDispatch()
    const searchParams = useSearchParams();
    const id = searchParams.get("categoryId"); // Extract 'id' from query params
+     const {
+         handleSubmit,
+         register,
+         formState: {
+             errors
+         },
+         watch,
+         setValue
+     } = useForm()
     // Find the category based on slug
     console.log("the category id is", id)
-  const [productData, setProductData] = useState([])
+    const { productsData } = useSelector(state=> state.products)
+    const [minimamPrice, setMinimamPrice] = useState(null)
+    const [maximamPrice, setMaximamPrice] = useState(null);
+    const [productData, setProductData] = useState([])
+    const [categoryData, setCategoryData] = useState([])
+    const minPrice = watch("minPrice")
+    const maxPrice = watch("maxPrice")
+  console.log("the max and min price is", minPrice, maxPrice)
+ useEffect(()=>{
+   setMinimamPrice(minPrice)
+   setMaximamPrice(maxPrice)
+ },[minPrice, maxPrice])
+
+ console.log("the new final price are",minimamPrice, maximamPrice)
+  
+useEffect(()=>{
+dispatch(getProducts({id:id , minPrice:0, maxPrice:100000}))
+},[dispatch,id])
 
     useEffect(()=>{
       const fetchData = async()=>{
@@ -254,9 +55,9 @@ export default function Page() {
                 }
             }
             const data = await axios.get(`/api/product?categoryId=${id}`,config)
-            const res = data?.data
-            console.log("the data is", res)
+            const res = data?.data// console.log("the data is", res)
             setProductData(res?.products)
+            setCategoryData(res?.categorieData)
         } catch (error) {
             console.log(error.message)
            return error 
@@ -265,46 +66,85 @@ export default function Page() {
       fetchData()
     },[id])
      
-    console.log("the data is",productData)
-
-    // const category = data.find((cat) => cat.slug === slug);
-
-    // if (!category) {
-    //     return <div className="text-center text-red-500 mt-10 text-2xl">Category not found!</div>;
-    // }
+    // console.log("the category data is",categoryData)
+   
+    const submitForm = async(data)=>{
+         dispatch(getProducts({id:id, minPrice:minimamPrice ?? 0, maxPrice:maximamPrice ?? 100000000}))
+    }
 
     return (
         <div className="container mx-auto px-4 py-10 ">
             {/* Hero Section */}
             <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] flex items-center justify-center overflow-hidden rounded-xl shadow-lg">
-                <Image src={productData[0]?.category?.banner[0]?.secure_url} layout="fill" objectFit="cover" alt={productData[0]?.category?.title}  />
+              {categoryData.length > 0  ? <><Image src={categoryData[0]?.banner[0]?.secure_url} layout="fill" objectFit="cover" alt="no"  /> </> :<div>
+                  <span> No Images</span>
+              </div>}
                 <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                    <h1 className="text-4xl md:text-5xl font-bold text-white">{productData[0]?.category?.title}</h1>
+                    <h1 className="text-4xl md:text-5xl font-bold text-white">{categoryData?.[0]?.title}</h1>
                 </div>
             </div>
-
             <p className="mt-8 text-lg text-gray-700 text-center">
-                Explore our <span className="font-semibold">{productData?.[0]?.category?.title}</span> collection!
+                Explore our <span className="font-semibold">{categoryData?.[0]?.title}</span> collection!
             </p>
 
+        <div className = "flex flex-col md:flex-row gap-6 mt-10" >
+              <aside className="w-full md:w-2/12 bg-white h-min p-6 rounded-xl shadow-lg">
+                <h2 className="text-lg font-semibold mb-4">Filter Products</h2>
+                {/* Example Filter: Categories */}
+                <form onSubmit={handleSubmit(submitForm)}>
+                <div className="mb-4">
+                    <label className="block text-gray-600 font-medium mb-2">Enter Price Range</label>
+                     <div className="flex flex-col gap-1">
+                      <label className = "block text-gray-600 font-medium" > Enter Min Price </label>
+
+                        <input
+                        id="minPrice"
+                        type="number"
+                        placeholder="Enter Min Price"
+                        {...register("minPrice")}
+                        />
+                        <label className = "block text-gray-600 font-medium" > Enter Max Price </label>
+                        <input
+                        id="maxPrice"
+                        type="number"
+                        placeholder="Enter Max Price"
+                        {...register("maxPrice")}/>
+                     </div>
+                </div>
+
+                {/* Clear Filter Button */}
+                <button
+                    className="w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition"
+                    type="submit"
+                >
+                    Search
+                </button>
+                </form>
+               
+            </aside>
             {/* Product Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10 ">
-                {productData.map((product, index) => (
+            <div className = "w-full md:w-11/12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                {productsData.length >0 ? productsData?.map((product, index) => (
                     <div 
                         key={index} 
                         className="bg-white  p-4 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 cursor-pointer"
                     >
                         <Image 
-                            src={product?.banner[0].secure_url} 
+                            src={product?.banner[0]?.secure_url} 
                             width={300} 
                             height={300} 
-                            alt={product.title} 
+                            alt={product?.title} 
                             className="rounded-lg w-full h-48 "
                         />
-                        <h2 className="text-xl font-semibold mt-4 text-center">{product.title}</h2>
+                        <h2 className="text-xl font-semibold mt-4 text-center">{product?.title}</h2>
                     </div>
-                ))}
+                )):
+                <><div>No Data Found</div></>
+            
+            }
+            
             </div>
+        </div>
         </div>
     );
 }

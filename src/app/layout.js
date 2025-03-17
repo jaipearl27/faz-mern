@@ -25,18 +25,20 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+    
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      > <ReduxProvider >
         <NavbarWrapper />
-        <ReduxProvider>
+         
            <main> 
             {children} 
             </main>
+         <FooterWrapper />
         </ReduxProvider>
-        
-        <FooterWrapper />
+
       </body>
+ 
     </html>
   );
 }

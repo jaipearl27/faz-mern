@@ -1,16 +1,29 @@
-// lib/redux/Provider.js
-'use client'; // Ensure this is a Client Component
+"use client"; // Ensure this is a Client Component
 
 import {
     Provider
-} from 'react-redux';
+} from "react-redux";
 import {
-    store
-} from './store';
+    PersistGate
+} from "redux-persist/integration/react";
+import {
+    store,
+    persistor
+} from "./store"; // Import store and persistor
+import {
+    injectStore
+} from "@/constants/constant";
+
+injectStore(store); // Inject store once
 
 export function ReduxProvider({
     children
 }) {
-    return <Provider store = {store} > {
-        children} </Provider>;
+    return ( 
+    <Provider store = {store}>
+        <PersistGate loading = {null} persistor = {persistor}> {
+            children
+        } </PersistGate> 
+        </Provider>
+    );
 }

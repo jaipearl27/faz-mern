@@ -7,9 +7,11 @@ import {
 
 export async function GET() {
     const {
-        isAuthenticated
+        isAuthenticated,
+        getRoles
     } = getKindeServerSession();
     const isLoggedIn = await isAuthenticated();
+    const roles = await getRoles()
     return NextResponse.json({
         isLoggedIn
     });

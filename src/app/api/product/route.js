@@ -2,7 +2,8 @@ import { connectToDatabase } from "@/lib/Database";
 import Products from "@/lib/Database/Model/Products"
 import { uploadToCloudinary } from "@/lib/util/cloudinaryConfig"
 import { NextResponse } from "next/server"
-
+import mongoose from "mongoose";
+import ProductCategory from "@/lib/Database/Model/ProductCategory";
 /** This is for creating a new product */
 export async function POST(req) {
     try {
@@ -67,7 +68,12 @@ export async function GET(req) {
         const categoryId = searchParams.get("categoryId");
         const page = parseInt(searchParams.get("page") || "1", 10);
         const limit = parseInt(searchParams.get("limit") || "10", 10); // Default: 10 items per page
-         console.log("the data is", categoryId) 
+        const sortOrder = searchParams.get("sort") || 'asc'
+        const minPrice = parseFloat(searchParams.get("minPrice") || "0");
+        const maxPrice = parseFloat(searchParams.get("maxPrice") || "100000");
+        await connectToDatabase()
+
+        console.log("all the filters are", categoryId, page, limit, sortOrder, minPrice, maxPrice)
         if (!categoryId) {
             return NextResponse.json({
                 message: "Category ID is required"
@@ -75,30 +81,89 @@ export async function GET(req) {
                 status: 400
             });
         }
+        const categoryFilter = mongoose.Types.ObjectId.isValid(categoryId) ?
+            new mongoose.Types.ObjectId(categoryId) :
+            null;
+
+        if (!categoryFilter) {
+            return NextResponse.json({
+                message: "Invalid Category ID"
+            }, {
+                status: 400
+            });
+        }    
+const testProduct = await Products.findOne({
+    category: categoryFilter
+});
+console.log("Test product found:", testProduct);
 
         // Pagination logic (skip items from previous pages)
         const skip = (page - 1) * limit;
 
+      /** for finding the category details */
+      const categorieData = await ProductCategory.find({_id:categoryId})
+      
         // Fetch products with pagination and selected fields only
-        const products = await Products.find({
-                category:categoryId
-            })
-            .select("title price stock banner") 
-            .populate("category")
-            .skip(skip)
-            .limit(limit);
-
+        const products = await Products.aggregate([
+            {
+                $match: {
+                    category: categoryFilter,
+                    price: {
+                        $gte: minPrice,
+                        $lte: maxPrice
+                    }
+                }
+            }, // Filter by category and price range
+            // {
+            //     $lookup: {
+            //         from: "productcategories",  
+            //         localField: "category",
+            //         foreignField: "_id",  
+            //         as: "categoryDetails"
+            //     }
+            // },
+            {
+                $sort: {
+                    price: sortOrder === "asc" ? 1 : -1
+                }
+            }, // Sort by price
+            {
+                $skip: skip
+            }, // Pagination: Skip previous pages
+            {
+                $limit: limit
+            }, // Limit per page
+            {
+                $project: {
+                    title: 1,
+                    price: 1,
+                    stock: 1,
+                    banner: 1,
+                    category: 1,
+                    // categoryDetails:1
+                }
+            }
+        ])
+           
+console.log("the products are", products)
         // Get total product count for pagination metadata
         const totalProducts = await Products.countDocuments({
-            category: categoryId
+                  category: categoryId,
+                  price: {
+                          $gte: minPrice,
+                        //   $lte: maxPrice
+                      }
         });
 
         return NextResponse.json({
             products,
+            categorieData,
+            paginate:{
             currentPage: page,
             totalPages: Math.ceil(totalProducts / limit),
             totalProducts,
             limit
+        }
         }, {
             status: 200
         });
