@@ -8,13 +8,15 @@ import ProductCategory from "@/lib/Database/Model/ProductCategory";
 export async function POST(req) {
     try {
         const formData = await req.formData();
-        const title = formData.get("title"); // Get title
-        const bannerFiles = formData.getAll("banner"); // Get all banner files
-        const categoryId = formData.get("category")
-        const price = formData.get("price")
-        const stock = formData.get("stock")
+        const title = formData.get("title");
+        const bannerFiles = formData.getAll("banner"); // Get multiple files
+        const categoryId = formData.get("category");
+        const price = formData.get("price");
+        const stock = formData.get("stock");
 
-        if (!title || bannerFiles.length === 0 || !categoryId || !price || !stock ) {
+        console.log("Banner files received:", bannerFiles);
+
+        if (!title || bannerFiles.length === 0 || !categoryId || !price || !stock) {
             return NextResponse.json({
                 message: "Missing required fields"
             }, {
@@ -24,8 +26,23 @@ export async function POST(req) {
 
         await connectToDatabase();
 
-        // Upload images to Cloudinary
-        const uploadedImages = await uploadToCloudinary(bannerFiles);
+        // Ensure all files are `Blob` objects before uploading
+ 
+        if (!Array.isArray(bannerFiles)) {
+            throw new Error("Invalid file format");
+        }
+
+        const validFiles = bannerFiles.filter((file) => file instanceof Blob || file instanceof File);
+
+        if (validFiles.length === 0) {
+            throw new Error("Invalid file format");
+        }
+
+        // Upload images
+        const uploadedImages = await uploadToCloudinary(validFiles);
+
+
+      
 
         const data = await Products.create({
             title,
@@ -35,20 +52,12 @@ export async function POST(req) {
             banner: uploadedImages, // Store array of uploaded images
         });
 
-        if (data) {
-            return NextResponse.json({
-                message: "Product created successfully",
-                data,
-            }, {
-                status: 201
-            });
-        } else {
-            return NextResponse.json({
-                message: "Something Failed"
-            }, {
-                status: 400
-            });
-        }
+        return NextResponse.json({
+            message: "Product created successfully",
+            data
+        }, {
+            status: 201
+        });
     } catch (error) {
         console.error("Error:", error);
         return NextResponse.json({
@@ -59,6 +68,7 @@ export async function POST(req) {
         });
     }
 }
+
 
 export async function GET(req) {
     try {
