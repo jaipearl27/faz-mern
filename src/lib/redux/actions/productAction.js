@@ -22,27 +22,43 @@ export const getProducts = createAsyncThunk(
 
 
 export const createProduct = createAsyncThunk(
-    "create/product", async(productData, {rejectWithValue})=>{
+    "create/product",
+    async (productData, {
+        rejectWithValue
+    }) => {
         try {
-            const config ={
-                headers:{
-                "Content-Type":"multipart/form-data"
-              }
-            }
+            const config = {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            };
             const formData = new FormData();
 
-            // Append product data fields
-            for (const key in productData) {
-                if (key === "banner" && Array.isArray(productData.banner)) {
-                    productData.banner.forEach((file) => formData.append("banner", file));
-                } else {
-                    formData.append(key, productData[key]);
-                }
+            console.log("Product data received in action:", productData);
+
+            // Ensure banner exists and is an array
+            if (productData.banner && Array.isArray(productData.banner)) {
+                productData.banner.forEach((file) => {
+                    console.log("Appending file:", file);
+                    formData.append("banner", file);
+                });
             }
-            const { data } = await axios.post(`/api/product`, formData, config)
-            return data
+
+            // Append other fields
+            formData.append("title", productData.title);
+            formData.append("category", productData.category);
+            formData.append("price", productData.price);
+            formData.append("stock", productData.stock);
+
+            console.log("Final FormData entries:", [...formData.entries()]);
+
+            const {
+                data
+            } = await axios.post(`/api/product`, formData, config);
+            return data;
         } catch (error) {
-           return rejectWithValue(error)            
+            return rejectWithValue(error);
         }
     }
-)
+);
+

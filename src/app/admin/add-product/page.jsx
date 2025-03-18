@@ -12,33 +12,19 @@ const AddProduct = () => {
     const { categoriesData } = useSelector(state=> state.productCategories)
 
     const [previewImages, setPreviewImages] = useState([]);
-
+    const [selectedImages, setSelectedImages] = useState([])
     // Handle image preview
     const handleImagePreview = (e) => {
         const files = Array.from(e.target.files);
+        setSelectedImages(files)
         const previews = files.map(file => URL.createObjectURL(file));
         setPreviewImages(previews);
     };
-
     const onSubmit = (data) => {
-        const formData = new FormData();
-
-        // Append product fields
-        formData.append("title", data.title);
-        formData.append("category", data.category);
-        formData.append("price", data.price);
-        formData.append("stock", data.stock);
-
-        // Append files manually
-        if (data.banner && data.banner.length > 0) {
-            for (let i = 0; i < data.banner.length; i++) {
-                formData.append("banner", data.banner[i]);
-            }
-        }
-
+        const formData = {...data, banner: selectedImages}
         dispatch(createProduct(formData));
-        reset();
-        setPreviewImages([]);
+        // reset();
+        // setPreviewImages([]);
     };
 
 
@@ -109,12 +95,13 @@ const AddProduct = () => {
                     <input
                         type="file"
                         multiple
+                        {...register("banner", { required: "At least one image is required" })}
                         className="w-full border p-2 rounded mt-1"
                         onChange={(e) => {
                             handleImagePreview(e);
-                            setValue("banner", e.target.files); // Store files manually in form state
                         }}
                     />
+
                     {errors.banner && <p className="text-red-500 text-sm mt-1">{errors.banner.message}</p>}
 
                     {/* Image Preview */}

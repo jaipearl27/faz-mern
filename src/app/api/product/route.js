@@ -9,14 +9,16 @@ export async function POST(req) {
     try {
         const formData = await req.formData();
         const title = formData.get("title");
-        const bannerFiles = formData.getAll("banner"); // Get multiple files
         const categoryId = formData.get("category");
         const price = formData.get("price");
         const stock = formData.get("stock");
 
-        console.log("Banner files received:", bannerFiles);
+        // Get files
+        const bannerFiles = formData.getAll("banner");
 
-        if (!title || bannerFiles.length === 0 || !categoryId || !price || !stock) {
+        console.log("Files received in API:", bannerFiles);
+
+        if (!title || !categoryId || !price || !stock || bannerFiles.length === 0) {
             return NextResponse.json({
                 message: "Missing required fields"
             }, {
@@ -26,30 +28,26 @@ export async function POST(req) {
 
         await connectToDatabase();
 
-        // Ensure all files are `Blob` objects before uploading
- 
-        if (!Array.isArray(bannerFiles)) {
-            throw new Error("Invalid file format");
-        }
-
-        const validFiles = bannerFiles.filter((file) => file instanceof Blob || file instanceof File);
-
+        // Validate files
+        const validFiles = bannerFiles.filter(file => file instanceof Blob || file instanceof File);
         if (validFiles.length === 0) {
-            throw new Error("Invalid file format");
+            return NextResponse.json({
+                message: "Invalid file format"
+            }, {
+                status: 400
+            });
         }
 
         // Upload images
         const uploadedImages = await uploadToCloudinary(validFiles);
 
-
-      
-
+        // Save product
         const data = await Products.create({
             title,
             category: categoryId,
             price,
             stock,
-            banner: uploadedImages, // Store array of uploaded images
+            banner: uploadedImages, // Array of uploaded image URLs
         });
 
         return NextResponse.json({
@@ -68,6 +66,7 @@ export async function POST(req) {
         });
     }
 }
+
 
 
 export async function GET(req) {
