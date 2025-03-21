@@ -18,10 +18,12 @@ const AdminNavbar = () => {
                   Add Product
                 </span>
                 </Link>
+                 <Link href={`/admin/addCategory`} >
+              <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium mr-4">
+                Add Product Category
+              </span>
+                 </Link>
                  
-                <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium mr-4">
-                    Add Product Category
-                </span>
                 <div className="relative">
                    <LogoutLink> Sign Out </LogoutLink>
                 </div>

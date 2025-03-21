@@ -8,7 +8,16 @@ import Link from "next/link";
 const navItems = [
   { label: "HOME", href: "/" },
   { label: "ABOUT US", href: "/about" },
-  { label: "SERVICES", href: "/services" },
+  { label: "SERVICES", href: "/services",
+    dropdown:[
+      { label: "Alluminium Tents", href: "#" },
+      { label: "Box Trucks / Buses Transportation", href: "#" },
+      { label: "Construction Vehicles", href: "#" },
+      { label: "Construction Vehicles 23", href: "#" },
+
+    ] 
+
+  },
   {
     label: "PRODUCTS", href: "/products",
     dropdown: [
