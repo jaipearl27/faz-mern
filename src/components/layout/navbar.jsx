@@ -13,7 +13,7 @@ const navItems = [
       { label: "Alluminium Tents", href: "#" },
       { label: "Box Trucks / Buses Transportation", href: "#" },
       { label: "Construction Vehicles", href: "#" },
-      { label: "Construction Vehicles 23", href: "#" },
+      // { label: "Construction Vehicles 23", href: "#" },
 
     ] 
 
