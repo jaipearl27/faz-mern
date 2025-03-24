@@ -66,9 +66,6 @@ export async function POST(req) {
         });
     }
 }
-
-
-
 export async function GET(req) {
     try {
         const {
@@ -181,6 +178,74 @@ console.log("the products are", products)
         return NextResponse.json({
             message: "Server error",
             error: error.message
+        }, {
+            status: 500
+        });
+    }
+}
+export async function PATCH(req) {
+    try {
+        const formData = await req.formData();
+        const productId = formData.get("id");
+
+        if (!productId) {
+            return NextResponse.json({
+                message: "Product ID is required"
+            }, {
+                status: 400
+            });
+        }
+
+        await connectToDatabase();
+
+        // Find the existing product
+        const existingProduct = await Products.findById(productId);
+        console.log("the existing product is", existingProduct)
+        if (!existingProduct) {
+            return NextResponse.json({
+                message: "Product not found"
+            }, {
+                status: 404
+            });
+        }
+
+        // Get updated fields (only if they are provided)
+        const title = formData.get("title") || existingProduct.title;
+        const categoryId = formData.get("category") || existingProduct.category;
+        const price = formData.get("price") || existingProduct.price;
+        const stock = formData.get("stock") || existingProduct.stock;
+
+        // Get files if provided
+        const bannerFiles = formData.getAll("banner");
+        let updatedBanners = existingProduct.banner; // Keep old banners if no new ones
+
+        if (bannerFiles.length > 0) {
+            const validFiles = bannerFiles.filter((file) => file instanceof Blob || file instanceof File);
+            if (validFiles.length > 0) {
+                updatedBanners = await uploadToCloudinary(validFiles);
+            }
+        }
+
+        // Update product in database
+        existingProduct.title = title;
+        existingProduct.category = categoryId;
+        existingProduct.price = price;
+        existingProduct.stock = stock;
+        existingProduct.banner = updatedBanners;
+
+        await existingProduct.save();
+
+        return NextResponse.json({
+            message: "Product updated successfully",
+            data: existingProduct,
+        }, {
+            status: 200
+        });
+    } catch (error) {
+        console.error("Error:", error);
+        return NextResponse.json({
+            message: "Server error",
+            error: error.message,
         }, {
             status: 500
         });

@@ -104,3 +104,58 @@ export async function GET(req){
     }
  
 }
+
+export async function PATCH(req){
+ try {
+    const formData = await req.formData();
+    const id= formData.get("id")
+
+    if (!id) {
+       return NextResponse.json({
+           message: "Category ID is required"
+       }, {
+           status: 400
+       });
+    }
+    await connectToDatabase()
+
+    const existingCategory = await ProductCategory.findById(id)
+    if (!existingCategory) {
+        return NextResponse.json({
+            message:"Category not found"
+        },{status:404})
+    }
+     const title = formData.get("title")
+    const slug = formData.get("slug")
+    const shortDescription = formData.get("shortDescription")
+    let updatedBanners = existingCategory.banner; // Keep old banners if no new ones
+ const bannerfiles = formData.getAll("banner")
+     if (bannerfiles.length > 0) {
+         const validFiles = bannerfiles.filter((file) => file instanceof Blob || file instanceof File);
+         if (validFiles.length > 0) {
+             updatedBanners = await uploadToCloudinary(validFiles);
+         }
+     }
+
+     existingCategory.title = title
+     existingCategory.slug = slug
+     existingCategory.shortDescription = shortDescription
+     existingCategory.banner = updatedBanners
+
+     existingCategory.save()
+     return NextResponse.json({
+        message:"Category updated successfully",
+        data: existingCategory
+     },{
+        status: 200
+     })
+ } catch (error) {
+     console.error("Error:", error);
+     return NextResponse.json({
+         message: "Server error",
+         error: error.message,
+     }, {
+         status: 500
+     });
+ }   
+}
