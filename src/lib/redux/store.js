@@ -10,8 +10,8 @@ import storage from "../util/customStorage"
 import {
     encryptTransform
 } from "redux-persist-transform-encrypt";
-import rootReducer from "./slices"; // Import combined reducers
-
+import rootReducer from ".";
+ 
 // Custom root reducer handling a clear action
 const rootReducerWithClear = (state, action) => {
     if (action.type === "faz/clearReduxState") {

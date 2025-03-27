@@ -15,3 +15,20 @@ export const createService = createAsyncThunk(
         }
     }
 )
+
+export const getServicesData = createAsyncThunk(
+    "get/allservices",async(_, {rejectWithValue})=>{
+        try {
+            const config = {
+                headers:{
+                    "Content-Type":"application/json"
+                }
+            }
+            const { data }= await axios.get(`/api/serviceroute`, config)
+            console.log(data)
+            return data
+        } catch (error) {
+            return rejectWithValue(error)
+        }
+    }
+)

@@ -7,23 +7,25 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 export const CardComponent = ({ data }) => {
   const pathname = usePathname();
-
+console.log("the data is", data)
   return (
     <>
     <div className="flex flex-col">
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
-      {data.map((product, index) => (
+      {
+      data?.length >0 &&
+      data?.map((product, index) => (
         <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden">
           <Image
-            src={product.banner}
-            alt={product.category}
+            src={product?.banner?.[0]?.secure_url} // just taking the first image
+            alt={product?.title}
             width={400}
             height={300}
             className="w-full"
           />
           <div className="p-4">
-            <h2 className="text-xl font-semibold">{product.category}</h2>
-            <p className="text-gray-600 mt-2">{product.description}</p>
+            <h2 className="text-xl font-semibold">{product?.title}</h2>
+            <p className="text-gray-600 mt-2">{product?.shortDescription}</p>
           </div>
         </div>
       ))}

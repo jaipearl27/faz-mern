@@ -50,3 +50,43 @@ try {
     });
 }    
 }
+
+
+export async function GET(req){
+    try {
+         const { searchParams } = new URL(req.url)
+           const page = parseInt(searchParams.get("page") || "1", 10)
+           const limit = parseInt(searchParams.get("limit") || "10", 10)
+
+           // logic to skip items from the previous pages
+           const skip = (page - 1) * limit
+
+           await connectToDatabase()
+           const data = await Services.find().skip(skip).limit(limit)
+           if(!data){
+             return NextResponse.json({
+                 message: "No Data is found"
+             }, {
+                 status: 404
+             });
+           }
+         const totalProductCategories = await Services.countDocuments()
+         return NextResponse.json({
+            message:"Data is found",
+            data:data,
+            currentPage:page,
+            totalPage: Math.ceil(totalProductCategories/limit),
+            totalProductCategories,
+            limit
+         },{
+            status:201
+         })
+        } catch (error) {
+        return NextResponse.json({
+              message: "Something Failed",
+              error: error.message
+        },{
+            status:500
+        });
+    }
+}

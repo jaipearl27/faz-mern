@@ -1,9 +1,11 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { CardComponent } from "../cards/card";
 import { usePathname } from "next/navigation";
 import Link from "next/link"; // ✅ Corrected import
+import { useDispatch, useSelector } from "react-redux";
+import { getAllCategories } from "@/lib/redux/actions/productCategoriesAction";
 
 const products = [
   {
@@ -35,10 +37,17 @@ const products = [
 // Main Products Component
 export default function Products() {
   const pathname = usePathname();
+  const dispatch = useDispatch()
+  const { categoriesData } = useSelector((state) => state.productCategories)
 
-  // ✅ Fix: Ensure displayedProducts is always an array
+useEffect(()=>{
+   dispatch(getAllCategories())
+},[])
+
+   // ✅ Fix: Ensure displayedProducts is always an array
   const displayedProducts = pathname === "/" ? products.slice(0, 4) : products;
-
+  const newDisplayingData = pathname === "/" ? (categoriesData?.length > 0 ? categoriesData?.slice(0, 4) : categoriesData) : categoriesData;
+  console.log("the categories are", newDisplayingData)
   return (
     <section className="py-16">
       <div className="container mx-auto px-4 space-y-2">
@@ -47,7 +56,7 @@ export default function Products() {
         </h2>
 
         <div className="flex flex-row items-center">
-  <CardComponent data={displayedProducts} />
+          {newDisplayingData?.length >0 && <CardComponent data={newDisplayingData} /> }  
 
   {/* ✅ Keep the button centered and remove extra space */}
   {/* {pathname === "/" && (

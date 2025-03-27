@@ -6,13 +6,11 @@ import {
 import {
     PersistGate
 } from "redux-persist/integration/react";
-import {
-    store,
-    persistor
-} from "./store"; // Import store and persistor
+ 
 import {
     injectStore
 } from "@/constants/constant";
+import { persistor, store } from "./store";
 
 injectStore(store); // Inject store once
 
