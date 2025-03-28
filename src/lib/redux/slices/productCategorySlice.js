@@ -5,9 +5,8 @@ const initialState ={
     isLoading: false,
     isSuccess: false,
     isError: false,
-    categoriesData : {
-
-    }
+    categoriesData :{},
+    paginate:{}
 }
 
 const createProductCategoriesSlice = createSlice({
@@ -26,12 +25,14 @@ const createProductCategoriesSlice = createSlice({
             state.isSuccess= false
             state.isLoading= false
             state.categoriesData={}
+            state.paginate= {}
         })
         .addCase(getAllCategories.fulfilled,(state,action)=>{
             state.isError= false
             state.isSuccess= true
             state.isLoading= false
             state.categoriesData = action.payload.data
+            state.paginate = action.payload.pagination
         })
         .addCase(addProductCategories.pending,state=>{
                     state.isLoading = true

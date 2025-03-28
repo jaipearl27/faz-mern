@@ -87,10 +87,12 @@ export async function GET(req){
          return NextResponse.json({
              message: "Data is found",
              data: data,
-             currentPage: page,
-             totalPage:Math.ceil(totalProductCategories/limit),
-             totalProductCategories,
-             limit
+             pagination:{
+                currentPage: page,
+                totalPage:Math.ceil(totalProductCategories/limit),
+                totalProductCategories,
+                limit
+            }
          }, {
              status: 201
          });

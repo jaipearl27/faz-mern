@@ -71,6 +71,27 @@ export async function GET(req) {
         const {
             searchParams
         } = new URL(req.url);
+        const from = searchParams.get("from")
+        if(from == "admin"){
+            await connectToDatabase()
+            const data = await Products.find()
+            console.log("the data before is", data)
+            if(!data){
+                return NextResponse.json({
+                    message:"No Product found",
+                    data:[]
+                },{
+                    status:400
+                })
+            }
+            console.log("the product are", data)
+            return NextResponse.json({
+                message:"Product Found successfully",
+                products: data
+            },{
+                status:201
+            })
+        }
         const categoryId = searchParams.get("categoryId");
         const page = parseInt(searchParams.get("page") || "1", 10);
         const limit = parseInt(searchParams.get("limit") || "10", 10); // Default: 10 items per page

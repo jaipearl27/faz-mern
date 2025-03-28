@@ -1,4 +1,7 @@
 import AdminNavbar from '@/components/AdminComponents/AdminNavbar';
+import ListCategories from '@/components/AdminComponents/ListCategories';
+import ListProducts from '@/components/AdminComponents/ListProducts';
+import ListServices from '@/components/AdminComponents/ListServices';
 import {
   LogoutLink
 } from '@kinde-oss/kinde-auth-nextjs/components';
@@ -83,7 +86,7 @@ const Page = () => {
       {/* Main content */}
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         {/* Stats section */}
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+        {/* <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8">
           {stats.map((stat) => (
             <div key={stat.id} className="bg-white overflow-hidden shadow rounded-lg">
               <div className="p-5">
@@ -108,10 +111,10 @@ const Page = () => {
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
 
         {/* Recent users section */}
-        <div className="bg-white shadow rounded-lg mb-8">
+        {/* <div className="bg-white shadow rounded-lg mb-8">
           <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
             <h3 className="text-lg leading-6 font-medium text-gray-900">Recent Users</h3>
             <p className="mt-1 text-sm text-gray-500">
@@ -219,10 +222,10 @@ const Page = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Activity section */}
-        <div className="bg-white shadow rounded-lg">
+        {/* <div className="bg-white shadow rounded-lg">
           <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
             <h3 className="text-lg leading-6 font-medium text-gray-900">Recent Activity</h3>
             <p className="mt-1 text-sm text-gray-500">Latest actions performed in the system.</p>
@@ -268,6 +271,27 @@ const Page = () => {
                 </div>
               </li>
             </ul>
+          </div>
+        </div> */}
+        {/**  Services */}
+        <div className='mb-6'>
+          <span>Services</span>
+          <div>
+           <ListServices />
+          </div>
+        </div>
+        {/** Products */}
+        <div className='mb-6'>
+          <span>Products</span>
+          <div>
+            <ListProducts />
+          </div>
+        </div>
+        {/** Categories */}
+        <div>
+          <span>Categories</span>
+          <div>
+            <ListCategories />
           </div>
         </div>
       </main>
