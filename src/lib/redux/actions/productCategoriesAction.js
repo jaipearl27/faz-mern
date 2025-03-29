@@ -43,3 +43,30 @@ export const addProductCategories = createAsyncThunk(
         }
     }
 )
+
+export const updateProductCategory = createAsyncThunk(
+    "update/productcategory",async(userdata, {rejectWithValue})=>{
+        try {
+            const config = {
+                headers:{
+                    "Content-Type":"multipart/form-data"
+                }
+            }
+            const formData = new FormData()
+             if (userdata.banner && Array.isArray(userdata.banner)) {
+                 userdata.banner.forEach(element => {
+                     formData.append("banner", element)
+                 });
+             }
+              formData.append("id", userdata.id)
+              formData.append("title", userdata.title);
+              formData.append("slug", userdata.slug)
+              formData.append("shortDescription", userdata.shortDescription)
+
+              const { data } = await axios.patch(`/api/productcategory`, formData,config)
+
+        } catch (error) {
+            return rejectWithValue(error)
+        }
+    }
+)
