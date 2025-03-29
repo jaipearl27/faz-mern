@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { createProduct, getProducts } from "../actions/productAction"
+import { createProduct, getProducts, updateProduct } from "../actions/productAction"
 
 const initialState ={
     isLoading:false,
@@ -52,6 +52,19 @@ const createProductSlice = createSlice({
             state.isLoading= false
             state.isError= false
             state.isSuccess= true
+        })
+        .addCase(updateProduct.pending,state=>{
+            state.isLoading= true
+        })
+        .addCase(updateProduct.rejected,state=>{
+            state.isLoading= false
+            state.isSuccess= false
+            state.isError= true
+        })
+        .addCase(updateProduct.fulfilled,state=>{
+            state.isLoading= false
+            state.isSuccess= true
+            state.isError= false
         })
     }
 })

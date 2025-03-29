@@ -33,9 +33,6 @@ export const createProduct = createAsyncThunk(
                 },
             };
             const formData = new FormData();
-
-            console.log("Product data received in action:", productData);
-
             // Ensure banner exists and is an array
             if (productData.banner && Array.isArray(productData.banner)) {
                 productData.banner.forEach((file) => {
@@ -49,9 +46,6 @@ export const createProduct = createAsyncThunk(
             formData.append("category", productData.category);
             formData.append("price", productData.price);
             formData.append("stock", productData.stock);
-
-            console.log("Final FormData entries:", [...formData.entries()]);
-
             const {
                 data
             } = await axios.post(`/api/product`, formData, config);
@@ -62,3 +56,34 @@ export const createProduct = createAsyncThunk(
     }
 );
 
+
+export const updateProduct = createAsyncThunk(
+    "update/product",async(userdata, {rejectWithValue})=>{
+        try {
+              const config = {
+                  headers: {
+                      "Content-Type": "multipart/form-data",
+                  },
+              };
+              const formData = new FormData();
+              // Ensure banner exists and is an array
+              if (userdata.banner && Array.isArray(userdata.banner)) {
+                  userdata.banner.forEach((file) => {
+                      console.log("Appending file:", file);
+                      formData.append("banner", file);
+                  });
+              }
+
+              // Append other fields
+              formData.append("id", userdata.id)
+              formData.append("title", userdata.title);
+              formData.append("category", userdata.category);
+              formData.append("price", userdata.price);
+              formData.append("stock", userdata.stock);
+              const data = await axios.patch(`/api/product`, formData, config)
+
+        } catch (error) {
+              return rejectWithValue(error)
+        }
+    }
+)
