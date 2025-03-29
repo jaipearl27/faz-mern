@@ -1,13 +1,30 @@
 "use client"
 
-import { getServicesData } from "@/lib/redux/actions/serviceAction";
+import { getServicesData, updateService } from "@/lib/redux/actions/serviceAction";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
 const ListServices = () => {
     const dispatch = useDispatch();
     const { serviceData } = useSelector((state) => state.services);
+    const { register, handleSubmit, setValue } = useForm();
+    const [openUpdateModal, setOpenUpdateModal] = useState(false);
+    const [singleServiceData, setSingleServiceData] = useState(null);
+
+    const handleOpenUpdateService = (data) => {
+        setSingleServiceData(data);
+        setOpenUpdateModal(true);
+        setValue("title", data?.title || "");
+        setValue("description", data?.description || "");
+    };
+
+    const onSubmitForm = (data) => {
+        const formData = {...data, id:singleServiceData?._id}
+        dispatch(updateService(formData));
+        setOpenUpdateModal(false);
+    };
 
     useEffect(() => {
         dispatch(getServicesData());
@@ -42,7 +59,9 @@ const ListServices = () => {
                                     <td className="border px-4 py-2">{item?.title}</td>
                                     <td className="border px-4 py-2">{item?.description}</td>
                                     <td className="border px-4 py-2">
-                                        <button className="bg-blue-500 text-white px-3 py-1 rounded mr-2">
+                                        <button
+                                            onClick={() => handleOpenUpdateService(item)}
+                                            className="bg-blue-500 text-white px-3 py-1 rounded mr-2">
                                             Update
                                         </button>
                                         <button className="bg-red-500 text-white px-3 py-1 rounded">
@@ -54,6 +73,60 @@ const ListServices = () => {
                     </tbody>
                 </table>
             </div>
+            {openUpdateModal && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-1/3 relative">
+                        <button
+                            onClick={() => setOpenUpdateModal(false)}
+                            className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
+                        >
+                            ✕
+                        </button>
+                        <h2 className="text-xl font-semibold mb-4">Update Service</h2>
+                        <form onSubmit={handleSubmit(onSubmitForm)}>
+                            <div className="mb-4">
+                                <label className="block text-gray-700">Title</label>
+                                <input
+                                    type="text"
+                                    {...register("title")}
+                                    className="w-full border border-gray-300 rounded p-2"
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-gray-700">Description</label>
+                                <textarea
+                                    {...register("description")}
+                                    className="w-full border border-gray-300 rounded p-2"
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-gray-700">Banner</label>
+                                {/* {singleServiceData?.banner?.[0]?.secure_url && (
+                                    <Image
+                                        src={singleServiceData.banner[0].secure_url}
+                                        alt="Banner"
+                                        width={100}
+                                        height={100}
+                                        className="object-cover mb-2"
+                                    />
+                                )} */}
+                                <input
+                                    type="file"
+                                    {...register("banner")}
+                                    className="w-full border border-gray-300 rounded p-2"
+                                />
+                            </div>
+                            <div className="flex justify-end">
+                                <button
+                                    type="submit"
+                                    className="bg-blue-500 text-white px-4 py-2 rounded">
+                                    Update
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

@@ -2,16 +2,25 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const createService = createAsyncThunk(
-    "create/service",async(inputdata,{rejectWithValue})=>{
+    "create/service",async(userdata,{rejectWithValue})=>{
         try {
             const config = {
                 headers:{
                     "Content-Type":"multipart/form-data"
                 }
             }
-            const { data }= await axios.post()
+            const formData = new FormData()
+            if(userdata.banner && Array.isArray(userdata.banner)){
+                userdata.banner.forEach(element => {
+                    formData.append("banner", element)
+                });
+            }
+            formData.append("title", userdata.title)
+            formData.append("description", userdata.description)
+
+            const { data }= await axios.post(`/api/serviceroute`, formData, config)
         } catch (error) {
-            
+            return rejectWithValue(error)
         }
     }
 )
@@ -27,6 +36,31 @@ export const getServicesData = createAsyncThunk(
             const { data }= await axios.get(`/api/serviceroute`, config)
             console.log(data)
             return data
+        } catch (error) {
+            return rejectWithValue(error)
+        }
+    }
+)
+
+export const updateService = createAsyncThunk(
+    "update/service", async(data, {rejectWithValue})=>{
+        try {
+            const config = {
+                headers:{
+                    "Content-Type":"multipart/form-data"
+                }
+            }
+            const formdata = new FormData()
+            if(data.banner && Array.isArray(data.banner)){
+                data.banner.forEach(element =>{
+                    formdata.append("banner", element)
+                })
+            }
+            formdata.append("id", data?.id)
+            formdata.append("title", data.title)
+            formdata.append("description", data.description)
+            const res = await axios.patch(`/api/serviceroute`, formdata, config)
+
         } catch (error) {
             return rejectWithValue(error)
         }

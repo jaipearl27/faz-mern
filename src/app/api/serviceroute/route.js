@@ -90,3 +90,68 @@ export async function GET(req){
         });
     }
 }
+
+
+export async function PATCH(req){
+    try {
+        const formData =await req.formData()
+        const serviceid = formData.get("id")
+        
+        if(!serviceid){
+            return NextResponse.json({
+                message:"No Id Provided Try again"
+            },{
+                status:400
+            })
+        }
+
+        await connectToDatabase()
+        const existingProduct = await Services.findById(serviceid);
+        if (!existingProduct) {
+            return NextResponse.json({
+                message: "Product not found"
+            }, {
+                status: 404
+            });
+        }
+
+
+
+
+
+         const title = formData.get("title")
+         const description = formData.get("description")
+
+         const bannerFiles = formData.getAll("banner")
+         let updatedBanners = existingProduct.banner;
+         if (bannerFiles.length > 0) {
+             const validFiles = bannerFiles.filter((file) => file instanceof Blob || file instanceof File);
+             if (validFiles.length > 0) {
+                 updatedBanners = await uploadToCloudinary(validFiles);
+             }
+         }
+ 
+      existingProduct.title = title
+      existingProduct.description = description
+      existingProduct.banner = updatedBanners
+
+      await existingProduct.save();
+      
+      return NextResponse.json({
+        message:"Service Updated successfully",
+        data: existingProduct
+      },{
+        status:200
+      })
+
+
+    } catch (error) {
+        console.log("Error is", error)
+        return NextResponse.json({
+            message:"Internal erro",
+            error: error
+        },{
+            status:500
+        })
+    }
+}
