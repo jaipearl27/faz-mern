@@ -1,10 +1,11 @@
 "use client"
 
-import { getServicesData, updateService } from "@/lib/redux/actions/serviceAction";
+import { deleteService, getServicesData, updateService } from "@/lib/redux/actions/serviceAction";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import ConfirmDeleteModal from "../deleteModal";
 
 const ListServices = () => {
     const dispatch = useDispatch();
@@ -12,7 +13,19 @@ const ListServices = () => {
     const { register, handleSubmit, setValue } = useForm();
     const [openUpdateModal, setOpenUpdateModal] = useState(false);
     const [singleServiceData, setSingleServiceData] = useState(null);
+    const [openDeleteModal, setDeleteModal] = useState(false);
+    const [deleteId, setDeleteId] = useState(null)
 
+    const handleDelete = ()=>{
+        dispatch(deleteService(deleteId))
+    }
+    
+    const openHandleDelete=(id)=>{
+        setDeleteId(id)
+        setDeleteModal(!openDeleteModal)
+    }
+
+    console.log("the id is",deleteId)
     const handleOpenUpdateService = (data) => {
         setSingleServiceData(data);
         setOpenUpdateModal(true);
@@ -64,7 +77,9 @@ const ListServices = () => {
                                             className="bg-blue-500 text-white px-3 py-1 rounded mr-2">
                                             Update
                                         </button>
-                                        <button className="bg-red-500 text-white px-3 py-1 rounded">
+                                        <button className="bg-red-500 text-white px-3 py-1 rounded"
+                                         onClick={()=>openHandleDelete(item?._id)}
+                                        >
                                             Delete
                                         </button>
                                     </td>
@@ -127,6 +142,9 @@ const ListServices = () => {
                     </div>
                 </div>
             )}
+
+            {/** delete modal */}
+            {openDeleteModal && <ConfirmDeleteModal confirmDelete={handleDelete} setShowDeleteModal={openHandleDelete} />}
         </div>
     );
 };

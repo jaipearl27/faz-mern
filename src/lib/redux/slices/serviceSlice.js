@@ -1,5 +1,5 @@
 const { createSlice } = require("@reduxjs/toolkit")
-const { getServicesData, updateService } = require("../actions/serviceAction")
+const { getServicesData, updateService, deleteService } = require("../actions/serviceAction")
 
 const initialState = {
     isLoading:false,
@@ -40,6 +40,19 @@ const createServiceSlice = createSlice({
             state.isSuccess= false
         })
         .addCase(updateService.fulfilled,(state)=>{
+            state.isLoading= false
+            state.isSuccess= true
+            state.isError= false
+        })
+        .addCase(deleteService.pending,state=>{
+            state.isLoading= true
+        })
+        .addCase(deleteService.rejected,state=>{
+            state.isLoading = false
+            state.isSuccess=false
+            state.isError= true
+        })
+        .addCase(deleteService.fulfilled,state=>{
             state.isLoading= false
             state.isSuccess= true
             state.isError= false

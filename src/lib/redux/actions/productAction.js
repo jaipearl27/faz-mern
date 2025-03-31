@@ -87,3 +87,20 @@ export const updateProduct = createAsyncThunk(
         }
     }
 )
+
+
+export const deleteProduct = createAsyncThunk(
+    "delete/product", async(id,{rejectWithValue})=>{
+        try {
+            const config ={
+                headers:{
+                    "Content-Type":"application/json"
+                }
+            }
+            const data = await axios.delete(`/api/product?id=${id}`, config)
+            return data
+        } catch (error) {
+            return rejectWithValue(error)            
+        }
+    }
+)

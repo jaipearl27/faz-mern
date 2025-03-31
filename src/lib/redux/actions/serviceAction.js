@@ -66,3 +66,20 @@ export const updateService = createAsyncThunk(
         }
     }
 )
+
+
+export const deleteService = createAsyncThunk(
+    "delete/service",async(id, {rejectWithValue})=>{
+        try {
+            const config ={
+                headers:{
+                    "Content-Type":"application/json"
+                }
+            }
+            const data = await axios.delete(`/api/serviceroute?id=${id}`,config)
+            return data
+        } catch (error) {
+           return rejectWithValue(error)            
+        }
+    }
+)

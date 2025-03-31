@@ -1,11 +1,12 @@
 "use client"
 
-import { getAllCategories, updateProductCategory } from "@/lib/redux/actions/productCategoriesAction"
+import { deleteCategory, getAllCategories, updateProductCategory } from "@/lib/redux/actions/productCategoriesAction"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useDispatch, useSelector } from "react-redux"
 import slugify from "slugify";
+import ConfirmDeleteModal from "../deleteModal"
 
 const ListCategories = () => {
     const dispatch = useDispatch()
@@ -13,6 +14,18 @@ const ListCategories = () => {
     const [openUpdateModal, setOpenUpdateModal] = useState(false)
     const {register, handleSubmit, setValue, formState:{errors}, watch} = useForm()
     const [id,setId] = useState(null)
+    const [openDeleteModal, setDeleteModal] = useState(false);
+    const [deleteId, setDeleteId] = useState(null)
+    
+    const handleDelete = ()=>{
+            dispatch(deleteCategory(deleteId))        
+    }
+    
+    const openHandleDelete=(id)=>{
+        setDeleteId(id)
+        setDeleteModal(!openDeleteModal)
+    }
+    
     const handleOpenUpdate =(data)=>{
         setOpenUpdateModal(!openUpdateModal)
         setId(data?._id)
@@ -70,7 +83,9 @@ const ListCategories = () => {
                                                          className="bg-blue-500 text-white px-3 py-1 rounded mr-2">
                                                             Update
                                                         </button>
-                                                        <button className="bg-red-500 text-white px-3 py-1 rounded">
+                                                        <button
+                                                        onClick={()=>openHandleDelete(item?._id)} 
+                                                        className="bg-red-500 text-white px-3 py-1 rounded">
                                                             Delete
                                                         </button>
                                                     </td>
@@ -138,7 +153,10 @@ const ListCategories = () => {
                   </div>
               </div>
           )}
-                </div>
+
+        {/** delete modal */}
+        {openDeleteModal && <ConfirmDeleteModal confirmDelete={handleDelete} setShowDeleteModal={openHandleDelete} />}
+    </div>
   )
 }
 

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { addProductCategories, getAllCategories, updateProductCategory } from "../actions/productCategoriesAction"
+import { addProductCategories, deleteCategory, getAllCategories, updateProductCategory } from "../actions/productCategoriesAction"
  
 const initialState ={
     isLoading: false,
@@ -58,6 +58,20 @@ const createProductCategoriesSlice = createSlice({
             state.isError= true
         })
         .addCase(updateProductCategory.fulfilled,state=>{
+            state.isLoading= false
+            state.isSuccess= true
+            state.isError= false
+        })
+        .addCase(deleteCategory.pending,state=>{
+            state.isLoading= true
+        }
+        )
+        .addCase(deleteCategory.rejected,state=>{
+            state.isLoading= false
+            state.isSuccess= false
+            state.isError= true
+        })
+        .addCase(deleteCategory.fulfilled,state=>{
             state.isLoading= false
             state.isSuccess= true
             state.isError= false

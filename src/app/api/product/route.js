@@ -272,3 +272,38 @@ export async function PATCH(req) {
         });
     }
 }
+
+export async function DELETE(req){
+    try {
+        const { searchParams } = req.nextUrl
+        const id = searchParams.get('id')
+
+        if(!id){
+            return NextResponse.json({
+                message:"Id is not recieved"
+            },{
+                status:400
+            })
+        }
+        await connectToDatabase()
+        const data = await Products.findByIdAndDelete(id)
+        if(!data){
+           return NextResponse.json({
+            message:"Failed to delete the product"
+           },{
+            status:400
+           })            
+        }
+        return NextResponse.json({
+            message:"Product deleted successfully"
+        },{
+            status:201
+        })
+    } catch (error) {
+         return NextResponse.json({
+            message:"Server error"
+         },{
+            status:500
+         })       
+     }
+}

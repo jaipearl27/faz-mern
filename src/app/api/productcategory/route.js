@@ -161,3 +161,38 @@ export async function PATCH(req){
      });
  }   
 }
+
+export async function DELETE(req){
+    try {
+        const { searchParams } = req.nextUrl
+        const id= searchParams.get("id")
+
+        if(!id){
+            return NextResponse.json({
+                message:"Resource is not sent"
+            }, {
+                status:400
+            })
+        }
+        await connectToDatabase()
+        const data = await ProductCategory.findByIdAndDelete(id)
+        if(!data){
+            return NextResponse.json({
+                message:"Unable to delete the Category"
+            },{
+                status: 401
+            })
+        }
+        return NextResponse.json({
+            message:"Successfully Deleted the Category"
+        },{
+            status:201
+        })
+    } catch (error) {
+        return NextResponse.json({
+            message:"Something went wrong"
+        },{
+            status:500
+        })
+    }
+}

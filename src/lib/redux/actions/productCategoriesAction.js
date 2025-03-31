@@ -70,3 +70,19 @@ export const updateProductCategory = createAsyncThunk(
         }
     }
 )
+
+export const deleteCategory = createAsyncThunk(
+    "delete/categories",async(id,{rejectWithValue})=>{
+       try {
+        const config ={
+            headers:{
+                "Content-Type":"application/json"
+            }
+        }
+        const data = await axios.delete(`/api/productcategory?id=${id}`, config)
+        return data
+       } catch (error) {
+         return rejectWithValue(error)        
+       }
+    }
+)

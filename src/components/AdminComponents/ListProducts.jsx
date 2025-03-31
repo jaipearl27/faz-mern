@@ -1,9 +1,10 @@
 "use client"
-import { getProducts, updateProduct } from "@/lib/redux/actions/productAction"
+import { deleteProduct, getProducts, updateProduct } from "@/lib/redux/actions/productAction"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useDispatch, useSelector } from "react-redux"
+import ConfirmDeleteModal from "../deleteModal"
 const ListProducts = () => {
     const dispatch = useDispatch()
     const { productsData }  = useSelector(state=> state.products)
@@ -11,6 +12,18 @@ const ListProducts = () => {
     const {register, handleSubmit, setValue, formState:{errors}, watch} = useForm()
     const [id, setId] = useState(null)
     const [categoryId, setCategoryId] = useState(null)
+
+   const [openDeleteModal, setDeleteModal] = useState(false);
+    const [deleteId, setDeleteId] = useState(null)
+
+    const handleDelete = ()=>{
+          dispatch(deleteProduct(deleteId))        
+    }
+    
+    const openHandleDelete=(id)=>{
+        setDeleteId(id)
+        setDeleteModal(!openDeleteModal)
+    }
     const handleOpenUpdate = (data) => {
         setOpenUpdateModal(!openUpdateModal)
         setCategoryId(data?.category)
@@ -63,7 +76,9 @@ const ListProducts = () => {
                                                 >
                                                     Update
                                                 </button>
-                                                <button className="bg-red-500 text-white px-3 py-1 rounded">
+                                                <button
+                                                onClick={()=> openHandleDelete(item?._id)}
+                                                className="bg-red-500 text-white px-3 py-1 rounded">
                                                     Delete
                                                 </button>
                                             </td>
@@ -134,6 +149,10 @@ const ListProducts = () => {
                   </div>
               </div>
           )}
+
+          {/** delete modal */}
+          {/** delete modal */}
+          {openDeleteModal && <ConfirmDeleteModal confirmDelete={handleDelete} setShowDeleteModal={openHandleDelete} />}
     </div>
   )
 }

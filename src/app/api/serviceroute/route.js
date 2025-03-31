@@ -114,11 +114,6 @@ export async function PATCH(req){
                 status: 404
             });
         }
-
-
-
-
-
          const title = formData.get("title")
          const description = formData.get("description")
 
@@ -153,5 +148,41 @@ export async function PATCH(req){
         },{
             status:500
         })
+    }
+}
+
+
+export async function DELETE(req){
+    try {
+        const { searchParams } = req.nextUrl
+        const id = searchParams.get("id")
+        console.log("the id recieved in")
+        if(!id){
+            return NextResponse.json({
+                message:"Id not recieved"
+            },{
+                status:400
+            })
+        }
+        await connectToDatabase()
+        const data = await Services.findByIdAndDelete(id)
+
+        if(!data){
+            return NextResponse.json({
+                message:"Failed to delete the Service"
+            })
+        }
+        return NextResponse.json({
+            message:"Successfully Deleted the Service"
+        },{
+            status:201
+        })
+    } catch (error) {
+         return NextResponse.json({
+            message:"Something went wrong",
+            error:error
+         },{           
+            status:500
+         })        
     }
 }
