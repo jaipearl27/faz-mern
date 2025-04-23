@@ -5,7 +5,8 @@ const initialState = {
     isLoading:false,
     isSuccess: false,
     isError:false,
-    serviceData:{}
+    serviceData:{},
+    paginate:{}
 }
 
 const createServiceSlice = createSlice({
@@ -29,7 +30,8 @@ const createServiceSlice = createSlice({
             state.isLoading= false
             state.isSuccess- true
             state.isError= false
-            state.serviceData= action.payload
+            state.serviceData= action.payload.data
+            state.paginate = action.payload.pagination
         })
         .addCase(updateService.pending,state=>{
             state.isLoading= true

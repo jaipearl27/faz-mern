@@ -74,10 +74,11 @@ export async function GET(req){
          return NextResponse.json({
             message:"Data is found",
             data:data,
+            pagination:{
             currentPage:page,
             totalPage: Math.ceil(totalProductCategories/limit),
-            totalProductCategories,
-            limit
+            total:totalProductCategories,
+            limit}
          },{
             status:201
          })

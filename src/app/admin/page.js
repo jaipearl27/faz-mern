@@ -1,3 +1,4 @@
+"use client"
 import AdminNavbar from '@/components/AdminComponents/AdminNavbar';
 import ListCategories from '@/components/AdminComponents/ListCategories';
 import ListProducts from '@/components/AdminComponents/ListProducts';

@@ -26,14 +26,14 @@ export const createService = createAsyncThunk(
 )
 
 export const getServicesData = createAsyncThunk(
-    "get/allservices",async(_, {rejectWithValue})=>{
+    "get/allservices",async({page,limit}, {rejectWithValue})=>{
         try {
             const config = {
                 headers:{
                     "Content-Type":"application/json"
                 }
             }
-            const { data }= await axios.get(`/api/serviceroute`, config)
+            const { data }= await axios.get(`/api/serviceroute?page=${page}&limit=${limit}`, config)
             console.log(data)
             return data
         } catch (error) {

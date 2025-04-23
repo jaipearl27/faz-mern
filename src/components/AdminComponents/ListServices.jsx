@@ -6,15 +6,26 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import ConfirmDeleteModal from "../deleteModal";
+import Pagination from "../Pagination/PaginationComponent";
 
 const ListServices = () => {
     const dispatch = useDispatch();
-    const { serviceData } = useSelector((state) => state.services);
+    const { serviceData , paginate} = useSelector((state) => state.services);
     const { register, handleSubmit, setValue } = useForm();
     const [openUpdateModal, setOpenUpdateModal] = useState(false);
     const [singleServiceData, setSingleServiceData] = useState(null);
     const [openDeleteModal, setDeleteModal] = useState(false);
     const [deleteId, setDeleteId] = useState(null)
+    const [currentPage, setCurrentPage] = useState(1);
+   /** pagination */
+   
+    const totalPages = Math.ceil(paginate?.total/paginate?.limit)
+ 
+    const handelPageClickServices=(page)=>{
+        if(page>0 && page <= totalPages){
+            setCurrentPage(page)
+        }
+    }
 
     const handleDelete = ()=>{
         dispatch(deleteService(deleteId))
@@ -40,8 +51,8 @@ const ListServices = () => {
     };
 
     useEffect(() => {
-        dispatch(getServicesData());
-    }, [dispatch]);
+        dispatch(getServicesData({page:currentPage, limit:1}));
+    }, [currentPage]);
 
     return (
         <div className="p-6">
@@ -57,8 +68,8 @@ const ListServices = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {Array.isArray(serviceData?.data) &&
-                            serviceData.data.map((item) => (
+                        {Array.isArray(serviceData) &&
+                            serviceData?.map((item) => (
                                 <tr key={item?._id} className="border">
                                     <td className="border px-4 py-2">
                                         <Image
@@ -87,6 +98,8 @@ const ListServices = () => {
                             ))}
                     </tbody>
                 </table>
+                <Pagination paginate={paginate} currentPage={currentPage} totalPages={totalPages} handlePageClick={handelPageClickServices} />
+
             </div>
             {openUpdateModal && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -145,7 +158,8 @@ const ListServices = () => {
 
             {/** delete modal */}
             {openDeleteModal && <ConfirmDeleteModal confirmDelete={handleDelete} setShowDeleteModal={openHandleDelete} />}
-        </div>
+
+         </div>
     );
 };
 
