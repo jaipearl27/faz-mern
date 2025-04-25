@@ -30,13 +30,10 @@ const ListServices = () => {
     const handleDelete = ()=>{
         dispatch(deleteService(deleteId))
     }
-    
     const openHandleDelete=(id)=>{
         setDeleteId(id)
         setDeleteModal(!openDeleteModal)
     }
-
-    console.log("the id is",deleteId)
     const handleOpenUpdateService = (data) => {
         setSingleServiceData(data);
         setOpenUpdateModal(true);
