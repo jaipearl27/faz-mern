@@ -5,16 +5,27 @@ import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useDispatch, useSelector } from "react-redux"
 import ConfirmDeleteModal from "../deleteModal"
+import Pagination from "../Pagination/PaginationComponent"
 const ListProducts = () => {
     const dispatch = useDispatch()
-    const { productsData }  = useSelector(state=> state.products)
+    const { productsData, paginate }  = useSelector(state=> state.products)
     const [openUpdateModal, setOpenUpdateModal] = useState(false)
     const {register, handleSubmit, setValue, formState:{errors}, watch} = useForm()
     const [id, setId] = useState(null)
     const [categoryId, setCategoryId] = useState(null)
 
    const [openDeleteModal, setDeleteModal] = useState(false);
-    const [deleteId, setDeleteId] = useState(null)
+   const [deleteId, setDeleteId] = useState(null)
+
+   const [currentPage, setCurrentPage] = useState(1);
+   const totalPages = Math.ceil(paginate?.total/ paginate?.limit)
+
+   const handlePageClick =(page)=>{
+    if(page>0 && page<= totalPages){
+        setCurrentPage(page)
+    }
+   }
+
 
     const handleDelete = ()=>{
           dispatch(deleteProduct(deleteId))        
@@ -39,8 +50,8 @@ const ListProducts = () => {
     }
 
     useEffect(()=>{
-      dispatch(getProducts({id:"",maxPrice:0, minPrice:0, from:"admin"}))
-    },[dispatch])
+      dispatch(getProducts({id:"",maxPrice:0, minPrice:0, from:"admin", page:currentPage,limit:10}))
+    },[currentPage])
   return (
     <div>
          <div className="p-6">
@@ -56,34 +67,34 @@ const ListProducts = () => {
                     </tr>
                 </thead>
                 <tbody>
-                          {Array.isArray(productsData) &&
-                              productsData.map((item) => (
-                                        <tr key={item?._id} className="border">
-                                            <td className="border px-4 py-2">
-                                                <Image
-                                                    src={item?.banner?.[0]?.secure_url || "/placeholder.jpg"}
-                                                    alt={item?.title}
-                                                    width={50}
-                                                    height={50}
-                                                    className="object-cover"
-                                                />
-                                            </td>
-                                            <td className="border px-4 py-2">{item?.title}</td>
-                                            <td className="border px-4 py-2">{item?.category}</td>
-                                            <td className="border px-4 py-2">
-                                                <button className="bg-blue-500 text-white px-3 py-1 rounded mr-2"
-                                                 onClick={()=> handleOpenUpdate(item)}
-                                                >
-                                                    Update
-                                                </button>
-                                                <button
-                                                onClick={()=> openHandleDelete(item?._id)}
-                                                className="bg-red-500 text-white px-3 py-1 rounded">
-                                                    Delete
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))}
+                {Array.isArray(productsData) &&
+                    productsData.map((item) => (
+                            <tr key={item?._id} className="border">
+                                <td className="border px-4 py-2">
+                                    <Image
+                                        src={item?.banner?.[0]?.secure_url || "/placeholder.jpg"}
+                                        alt={item?.title}
+                                        width={50}
+                                        height={50}
+                                        className="object-cover"
+                                    />
+                                </td>
+                                <td className="border px-4 py-2">{item?.title}</td>
+                                <td className="border px-4 py-2">{item?.category}</td>
+                                <td className="border px-4 py-2">
+                                    <button className="bg-blue-500 text-white px-3 py-1 rounded mr-2"
+                                        onClick={()=> handleOpenUpdate(item)}
+                                    >
+                                        Update
+                                    </button>
+                                    <button
+                                    onClick={()=> openHandleDelete(item?._id)}
+                                    className="bg-red-500 text-white px-3 py-1 rounded">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
@@ -153,6 +164,9 @@ const ListProducts = () => {
           {/** delete modal */}
           {/** delete modal */}
           {openDeleteModal && <ConfirmDeleteModal confirmDelete={handleDelete} setShowDeleteModal={openHandleDelete} />}
+          <div>
+            <Pagination currentPage={currentPage} handlePageClick={handlePageClick} totalPages={totalPages} paginate={paginate} />
+          </div>
     </div>
   )
 }

@@ -85,13 +85,13 @@ export async function GET(req){
          }
          const totalProductCategories = await ProductCategory.countDocuments()
          return NextResponse.json({
-             message: "Data is found",
+             message: "Data is found1",
              data: data,
              pagination:{
                 currentPage: page,
                 totalPage:Math.ceil(totalProductCategories/limit),
-                totalProductCategories,
-                limit
+                total:totalProductCategories,
+                limit:limit
             }
          }, {
              status: 201

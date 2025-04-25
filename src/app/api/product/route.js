@@ -71,10 +71,20 @@ export async function GET(req) {
         const {
             searchParams
         } = new URL(req.url);
+   
+   
+   
+   const page = parseInt(searchParams.get("page") || "1", 10);
+   const limit = parseInt(searchParams.get("limit") || "10", 10);
+   const skip = (page - 1) * limit;
+
+
         const from = searchParams.get("from")
         if(from == "admin"){
             await connectToDatabase()
-            const data = await Products.find()
+            const totalProducts = await Products.countDocuments();
+
+            const data = await Products.find().skip(skip).limit(limit);
             console.log("the data before is", data)
             if(!data){
                 return NextResponse.json({
@@ -87,14 +97,19 @@ export async function GET(req) {
             console.log("the product are", data)
             return NextResponse.json({
                 message:"Product Found successfully",
-                products: data
+                products: data,
+                paginate: {
+                    currentPage: page,
+                    totalPage: Math.ceil(totalProducts / limit),
+                    total:totalProducts,
+                    limit:limit
+                }
             },{
                 status:201
             })
         }
         const categoryId = searchParams.get("categoryId");
-        const page = parseInt(searchParams.get("page") || "1", 10);
-        const limit = parseInt(searchParams.get("limit") || "10", 10); // Default: 10 items per page
+       // Default: 10 items per page
         const sortOrder = searchParams.get("sort") || 'asc'
         const minPrice = parseFloat(searchParams.get("minPrice") || "0");
         const maxPrice = parseFloat(searchParams.get("maxPrice") || "100000");
@@ -122,11 +137,6 @@ export async function GET(req) {
 const testProduct = await Products.findOne({
     category: categoryFilter
 });
-console.log("Test product found:", testProduct);
-
-        // Pagination logic (skip items from previous pages)
-        const skip = (page - 1) * limit;
-
       /** for finding the category details */
       const categorieData = await ProductCategory.find({_id:categoryId})
       

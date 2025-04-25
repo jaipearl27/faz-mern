@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form"
 import { useDispatch, useSelector } from "react-redux"
 import slugify from "slugify";
 import ConfirmDeleteModal from "../deleteModal"
+import Pagination from "../Pagination/PaginationComponent"
 
 const ListCategories = () => {
     const dispatch = useDispatch()
@@ -17,6 +18,15 @@ const ListCategories = () => {
     const [openDeleteModal, setDeleteModal] = useState(false);
     const [deleteId, setDeleteId] = useState(null)
     
+    /** pagination */
+    const [currentPage, setCurrentPage] = useState(1);
+    const totalPages= Math.ceil(paginate?.total/paginate?.limit)
+
+    const handleClick=(page)=>{
+        if(page>0 && page<= totalPages){
+            setCurrentPage(page)
+        }
+    }
     const handleDelete = ()=>{
             dispatch(deleteCategory(deleteId))        
     }
@@ -47,8 +57,8 @@ const ListCategories = () => {
         dispatch(updateProductCategory(formdata))
     }
     useEffect(()=>{
-      dispatch(getAllCategories())
-    },[dispatch])
+      dispatch(getAllCategories({page:currentPage, limit:10}))
+    },[currentPage])
   return (            
   <div className="p-6">
                             <h1 className="text-2xl font-bold mb-4">List of Categories</h1>
@@ -156,6 +166,10 @@ const ListCategories = () => {
 
         {/** delete modal */}
         {openDeleteModal && <ConfirmDeleteModal confirmDelete={handleDelete} setShowDeleteModal={openHandleDelete} />}
+
+        <div>
+         <Pagination totalPages={totalPages} currentPage={currentPage} paginate={paginate} handlePageClick={handleClick} />
+        </div>
     </div>
   )
 }
