@@ -57,21 +57,6 @@ useEffect(()=>{
 
         <div className="flex flex-row items-center">
           {newDisplayingData?.length >0 && <CardComponent data={newDisplayingData} /> }  
-
-  {/* ✅ Keep the button centered and remove extra space */}
-  {/* {pathname === "/" && (
-    <div className="mt-4">
-      <Link
-        href="/products"
-        className="flex items-center text-green-600 text-xl px-3 py-4 group hover:text-green-700 transition duration-300"
-      >
-        VIEW ALL PRODUCTS
-        <span className="ml-1 transition-transform group-hover:translate-x-1">
-          <ArrowForwardIosIcon fontSize="small" />
-        </span>
-      </Link>
-    </div>
-  )} */}
 </div>
 
        
