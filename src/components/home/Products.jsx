@@ -41,8 +41,8 @@ export default function Products() {
   const { categoriesData } = useSelector((state) => state.productCategories)
 
 useEffect(()=>{
-   dispatch(getAllCategories())
-},[])
+   dispatch(getAllCategories({page:1,limit:10}))
+},[dispatch])
 
    // ✅ Fix: Ensure displayedProducts is always an array
   const displayedProducts = pathname === "/" ? products.slice(0, 4) : products;
