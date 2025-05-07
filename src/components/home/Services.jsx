@@ -18,8 +18,8 @@ export default function Services({ data }) {
     const dispatch = useDispatch()
     const { serviceData } = useSelector(state=> state.services)
     useEffect(()=>{
-       dispatch(getServicesData())
-    },[])
+       dispatch(getServicesData({page:1, limit:10}))
+    },[dispatch])
  console.log("the data of services is", serviceData)
 
     return (
@@ -27,7 +27,7 @@ export default function Services({ data }) {
             <div className="container mx-auto px-4 space-y-5">
                 <h2 className="text-black text-3xl font-semibold uppercase mx-auto mb-10 text-center">SERVICES</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {serviceData?.data?.length>0 && serviceData?.data?.map((service, index) => (
+                    {serviceData?.length>0 && serviceData?.map((service, index) => (
                         <div key={index} className=" shadow-lg rounded-lg overflow-hidden bg-white">
                             <Image
                                 src={service?.banner?.[0]?.secure_url}
