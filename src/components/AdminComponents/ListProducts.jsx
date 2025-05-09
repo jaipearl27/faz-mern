@@ -28,7 +28,9 @@ const ListProducts = () => {
 
 
     const handleDelete = ()=>{
-          dispatch(deleteProduct(deleteId))        
+          dispatch(deleteProduct(deleteId)).then((res)=>{
+            console.log("the res is", res)
+          })        
     }
     
     const openHandleDelete=(id)=>{
@@ -80,7 +82,7 @@ const ListProducts = () => {
                                     />
                                 </td>
                                 <td className="border px-4 py-2">{item?.title}</td>
-                                <td className="border px-4 py-2">{item?.category}</td>
+                                <td className="border px-4 py-2">{item?.category?.title}</td>
                                 <td className="border px-4 py-2">
                                     <button className="bg-blue-500 text-white px-3 py-1 rounded mr-2"
                                         onClick={()=> handleOpenUpdate(item)}

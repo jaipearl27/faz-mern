@@ -84,7 +84,7 @@ export async function GET(req) {
             await connectToDatabase()
             const totalProducts = await Products.countDocuments();
 
-            const data = await Products.find().skip(skip).limit(limit);
+            const data = await Products.find().skip(skip).limit(limit).populate("category");
             console.log("the data before is", data)
             if(!data){
                 return NextResponse.json({

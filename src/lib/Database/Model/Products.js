@@ -17,7 +17,7 @@ const ProductsSchema = new mongoose.Schema({
     ],
    category:{
               type: mongoose.Schema.Types.ObjectId,
-              ref: "ProductCategory"
+              ref: "productcategories"
               },
     price:{type: Number, required:true},
     stock:{type:Number}      
