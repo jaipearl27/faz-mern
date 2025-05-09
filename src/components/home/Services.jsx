@@ -34,9 +34,9 @@ export default function Services({ data }) {
                                 alt={service?.title}
                                 width={400}
                                 height={300}
-                                className="w-full min-h-40 max-h-40 rounded-md"
+                                className="w-full min-h-56 max-h-56 rounded-md"
                             />
-                            <div className="p-4">
+                            <div className="p-2">
                                 <h2 className="text-xl font-semibold min-h-16">{service?.title}</h2>
                                 <p className="text-gray-600 mt-2 line-clamp-6">{service?.description}</p>
                             </div>

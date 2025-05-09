@@ -10,6 +10,7 @@ const AddProduct = () => {
     const dispatch = useDispatch();
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm();
     const { categoriesData } = useSelector(state=> state.productCategories)
+    console.log("cat",categoriesData)
 
     const [previewImages, setPreviewImages] = useState([]);
     const [selectedImages, setSelectedImages] = useState([])
@@ -29,7 +30,7 @@ const AddProduct = () => {
 
 
     useEffect(()=>{
-       dispatch(getAllCategories())
+       dispatch(getAllCategories({page:1, limit:100}))
     },[dispatch])
     return (
         <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-10">

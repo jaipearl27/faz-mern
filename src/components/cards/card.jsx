@@ -12,6 +12,7 @@ console.log("the data is", data)
     <>
     <div className="flex flex-col">
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
+  
       {
       data?.length >0 &&
       data?.map((product, index) => (
@@ -21,7 +22,7 @@ console.log("the data is", data)
             alt={product?.title}
             width={400}
             height={300}
-            className="w-full"
+            className="w-full min-h-56 max-h-56 rounded-md"
           />
           <div className="p-4">
             <h2 className="text-xl font-semibold">{product?.title}</h2>

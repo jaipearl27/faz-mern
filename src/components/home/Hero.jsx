@@ -20,7 +20,7 @@ function index() {
               <div className="rounded-xl h-[80vh] w-full" style={{ background: 'url("/officeBanner.jpg")', backgroundSize: 'cover' }} ></div>
             </Slider>
             <Slider className="w-full">
-              <div className="rounded-xl h-[80vh] w-full" style={{ background: 'url("/services/boxTrucks.png")', backgroundSize: 'cover' }} ></div>
+              <div className="rounded-xl h-[80vh] w-full" style={{ background: 'url("/busBanner.jpg")', backgroundSize: 'cover' }} ></div>
             </Slider>
           </SliderContainer>
           <div className="flex justify-center py-4">

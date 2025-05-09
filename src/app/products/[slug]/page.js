@@ -88,11 +88,11 @@ dispatch(getProducts({id:id , minPrice:0, maxPrice:100000}))
             </p>
 
         <div className = "flex flex-col md:flex-row gap-6 mt-10" >
-              <aside className="w-full md:w-2/12 bg-white h-min p-6 rounded-xl shadow-lg">
-                <h2 className="text-lg font-semibold mb-4">Filter Products</h2>
+              {/* <aside className="w-full md:w-2/12 bg-white h-min p-6 rounded-xl shadow-lg"> */}
+                {/* <h2 className="text-lg font-semibold mb-4">Filter Products</h2> */}
                 {/* Example Filter: Categories */}
                 <form onSubmit={handleSubmit(submitForm)}>
-                <div className="mb-4">
+                {/* <div className="mb-4">
                     <label className="block text-gray-600 font-medium mb-2">Enter Price Range</label>
                      <div className="flex flex-col gap-1">
                       <label className = "block text-gray-600 font-medium" > Enter Min Price </label>
@@ -110,18 +110,18 @@ dispatch(getProducts({id:id , minPrice:0, maxPrice:100000}))
                         placeholder="Enter Max Price"
                         {...register("maxPrice")}/>
                      </div>
-                </div>
+                </div> */}
 
                 {/* Clear Filter Button */}
-                <button
+                {/* <button
                     className="w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition"
                     type="submit"
                 >
                     Search
-                </button>
+                </button> */}
                 </form>
                
-            </aside>
+            {/* </aside> */}
             {/* Product Grid */}
             <div className = "w-full md:w-11/12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                 {productsData.length >0 ? productsData?.map((product, index) => (
