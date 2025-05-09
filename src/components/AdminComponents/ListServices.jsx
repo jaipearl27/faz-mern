@@ -48,7 +48,7 @@ const ListServices = () => {
     };
 
     useEffect(() => {
-        dispatch(getServicesData({page:currentPage, limit:1}));
+        dispatch(getServicesData({page:currentPage, limit:10}));
     }, [currentPage]);
 
     return (

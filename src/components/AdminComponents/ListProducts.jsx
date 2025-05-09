@@ -18,7 +18,7 @@ const ListProducts = () => {
    const [deleteId, setDeleteId] = useState(null)
 
    const [currentPage, setCurrentPage] = useState(1);
-   const totalPages = Math.ceil(paginate?.total/ paginate?.limit)
+   const totalPages = Math.ceil(paginate?.total/paginate?.limit)
 
    const handlePageClick =(page)=>{
     if(page>0 && page<= totalPages){
